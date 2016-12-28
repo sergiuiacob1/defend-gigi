@@ -5,6 +5,12 @@
 #define APP_H
 
 #include <ngrest/common/Service.h>
+#include "./arena/arena.h"
+
+struct GameInfo{
+  int userId;
+  int arenaId;
+};
 
 //! Dummy description for the service
 /*! Some detailed description of the service */
@@ -12,6 +18,8 @@
 // *location: app
 class app: public ngrest::Service
 {
+  private:
+    vector <Arena> arenas;
 public:
     // Here is an example of service operation
     //! Dummy description for the operation
@@ -30,6 +38,19 @@ public:
     // *location: /hello?name={name}
     // *method: GET
     std::string hello(const std::string& name);
+
+    // *location: /get_arena_info?id={id}&userid={userId}
+    // *method: GET
+    ArenaInfo getArenaInfo(const std::string& id, const std::string& userId);
+
+    // *location: /startgame?name={name}
+    // *method: POST
+    GameInfo startGame(name);
+
+    // *location: /update_arena_info?arenaid={arenaId}&userid={userId}&move={move}
+    // *method: POST
+    std::string updateArenaInfo(const std::string& arenaId, const std::string& userId, const std::srtring& move);
+
 };
 
 
