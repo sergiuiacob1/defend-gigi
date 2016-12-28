@@ -8,3 +8,7 @@ std::string app::echo(const std::string& text)
     return "Hi, " + text;
 }
 
+std::string app::hello(const std::string& name){
+  return "Buna si tie" + name;
+}
+

@@ -27,6 +27,9 @@ public:
     // *method: GET
     //
     std::string echo(const std::string& text);
+    // *location: /hello?name={name}
+    // *method: GET
+    std::string hello(const std::string& name);
 };
 
 
