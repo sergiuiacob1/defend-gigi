@@ -1,2 +1,3 @@
 app/.ngrest/local
 app/.ngrest/local/build
+node_modules
