@@ -20,5 +20,5 @@ void log (const int& x, std::string s = "UInt"){
 	cout << s << x <<'\n';
 	return;
 }
-
+d
 #endif
