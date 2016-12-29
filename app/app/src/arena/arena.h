@@ -1,7 +1,7 @@
 #ifndef ARENA_H
 #define ARENA_H
 
-#include "./../user/user.h"
+#include "./user/user.h"
 
 struct ArenaInfo{
   int id;
@@ -21,7 +21,6 @@ class Arena {
     ArenaInfo getArenaInfo(int userId);
     void updateUser(int userId, const std::string& move);
 };
-
 
 /*class User{
   private:

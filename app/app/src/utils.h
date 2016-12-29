@@ -1,5 +1,6 @@
 #ifndef UTILS_H
 #define UTILS_H
+
 #include <iostream>
 #include <cstring>
 #include <vector>
@@ -11,10 +12,11 @@ struct position{
 	double x, y;
 };
 
-void log (const position& pos, std::string s);
+void log (const position&, std::string);
 
-void log (const double& x, std::string s);
+void log (const double&, std::string);
 
-void log (const int& x, std::string s);
+void log (const int&, std::string);
+
 
 #endif

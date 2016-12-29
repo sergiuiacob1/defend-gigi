@@ -1,4 +1,4 @@
-#include "./arena.h"
+#include "./arena/arena.h"
 
 int lastArenaId = 0;
 

@@ -18,7 +18,7 @@ struct GameInfo{
 // *location: app
 class app: public ngrest::Service
 {
-  private:
+private:
     vector <Arena> arenas;
 public:
     // Here is an example of service operation
@@ -34,7 +34,8 @@ public:
     // '*method' metacomment sets HTTP method for the operation. GET is default method.
     // *method: GET
     //
-    std::string echo(const std::string& text);
+    
+
     // *location: /hello?name={name}
     // *method: GET
     std::string hello(const std::string& name);
