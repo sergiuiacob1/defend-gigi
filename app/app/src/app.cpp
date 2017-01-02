@@ -31,7 +31,7 @@ GameInfo app::startGame(std::string name){
     }
   }
   //no arenas left for the user
-  //create a nee arena
+  //create a new arena
 
   Arena arena();
   arenas.push_back(arena);
@@ -39,7 +39,7 @@ GameInfo app::startGame(std::string name){
   return {user.getId(), arenas[arenas.size() - 1].getId()};
 }
 
-std::string app::updateArenaInfo(const std::string& arenaId, const std::string& userId, const std::srtring& move){
+std::string app::updateArenaInfo(const std::string& arenaId, const std::string& userId, const std::string& move){
   int i;
   for (i = 0; i < arenas.size(); ++i){
     if (arenas[i].getId() == arenaId){
