@@ -1,0 +1,32 @@
+cmake_minimum_required(VERSION 2.6)
+
+project (app_v3 CXX)
+
+set(APP_V3_HEADERS app_v3.h)
+
+set(PROJECT_SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/src)
+set(APP_V3_CODEGEN_DIR "${PROJECT_BINARY_DIR}/codegen")
+
+PREPEND(APP_V3_HEADERS_PATHS ${PROJECT_SOURCE_DIR} ${APP_V3_HEADERS})
+
+CODEGEN_FILES(APP_V3_CODEGEN_SOURCES ${APP_V3_CODEGEN_DIR} ${APP_V3_HEADERS})
+
+add_custom_command(OUTPUT ${APP_V3_CODEGEN_SOURCES}
+    COMMAND ${NGREST_BIN_PATH}ngrestcg -i "${PROJECT_SOURCE_DIR}" -o ${APP_V3_CODEGEN_DIR} -t service ${APP_V3_HEADERS}
+    DEPENDS ${APP_V3_HEADERS_PATHS}
+)
+
+file(GLOB APP_V3_SOURCES ${PROJECT_SOURCE_DIR}/*.cpp)
+
+list(APPEND APP_V3_SOURCES ${APP_V3_CODEGEN_SOURCES})
+
+include_directories(${PROJECT_SOURCE_DIR} $ENV{NGREST_EXT_INCLUDES})
+
+add_library(app_v3 MODULE ${APP_V3_SOURCES})
+
+set_target_properties(app_v3 PROPERTIES PREFIX "")
+set_target_properties(app_v3 PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${PROJECT_SERVICES_DIR}"
+)
+
+target_link_libraries(app_v3 ngrestutils ngrestcommon ngrestjson ngrestengine $ENV{NGREST_EXT_LIBS})

@@ -1,24 +1,21 @@
 #ifndef ARENA_H
 #define ARENA_H
 
-#include "./user/user.h"
-
-struct ArenaInfo{
-  int id;
-  position playerPosition;
-  vector <position> players;
-};
+#include "./user.h"
+#include <iostream>
+#include <vector>
 
 class Arena {
   private:
     int id;
     int maxUsers = 10;
-    vector <User> users;
+    int lastUpdate;
+    std::vector <User> users;
   public:
     Arena();
     int getId() {return id;}
     bool addUser(User);
-    ArenaInfo getArenaInfo(int userId);
+    std::string getArenaInfo(int userId);
     void updateUser(int userId, const std::string& move);
 };
 

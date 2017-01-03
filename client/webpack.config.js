@@ -6,9 +6,10 @@ module.exports = {
     },
     module: {
         loaders: [
+            { test: /\.json$/, loader: "json" },
             {
                 test: /\.js$/,
-                loader: 'babel', 
+                loader: 'babel',
                 query: {
                     presets: ['es2015']
                 }

@@ -6,20 +6,20 @@
 
 #include <ngrest/common/Service.h>
 #include "./arena/arena.h"
+#include <vector>
 
 struct GameInfo{
   int userId;
   int arenaId;
 };
 
+std::vector <Arena> arenas;
 //! Dummy description for the service
 /*! Some detailed description of the service */
 // '*location' comment sets resource path for this service
 // *location: app
 class app: public ngrest::Service
 {
-private:
-    vector <Arena> arenas;
 public:
     // Here is an example of service operation
     //! Dummy description for the operation
@@ -34,7 +34,7 @@ public:
     // '*method' metacomment sets HTTP method for the operation. GET is default method.
     // *method: GET
     //
-    
+
 
     // *location: /hello?name={name}
     // *method: GET
