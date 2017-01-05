@@ -13,10 +13,11 @@ class Arena {
     std::vector <User> users;
   public:
     Arena();
-    int getId() {return id;}
+    const int getId() {return id;}
     bool addUser(User);
     std::string getArenaInfo(int userId);
     void updateUser(int userId, const std::string& move);
+    const int getNrUsers() {return users.size();}
 };
 
 #endif
