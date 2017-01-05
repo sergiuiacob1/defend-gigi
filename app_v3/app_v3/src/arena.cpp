@@ -44,7 +44,7 @@ std::string Arena::getArenaInfo(int userId){
 }
 
 void Arena::updateUser(int userId, const std::string& move){
-  int i;
+  unsigned int i;
   for (i = 0; i < users.size(); ++i){
     if (users[i].getId() == userId){
       users[i].update(move);

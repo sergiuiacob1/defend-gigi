@@ -6,6 +6,7 @@
 #include "./utils.h"
 #include "./user.h"
 #include "./arena.h"
+#include <cstdlib>
 using json = nlohmann::json;
 
 std::vector <Arena> arenas;
@@ -16,7 +17,7 @@ std::string app::hello(const std::string& name){
 }
 
 std::string app::getArenaInfo(const std::string& id, const std::string& userId){
-  int i;
+  unsigned int i;
   int intId = std::stoi(id);
   int intUserId = std::stoi(userId);
   for (i = 0; i < arenas.size(); ++i){
@@ -31,8 +32,10 @@ std::string app::startGame(const std::string& name){
   json res;
   //return j.dump();
   //return "Startgame";
-  int i;
-  position init = {0, 0};
+  srand(time(NULL));
+  unsigned int i;
+  position init;
+  init.x = rand() % CANVAS_WIDTH; init.y = rand() % CANVAS_HEIGHT;
   User user(name, init);
   for (i = 0; i < arenas.size(); ++i){
     if (arenas[i].addUser(user)){
@@ -54,7 +57,7 @@ std::string app::startGame(const std::string& name){
 }
 
 std::string app::updateArenaInfo(const std::string& arenaId, const std::string& userId, const std::string& move){
-  int i;
+  unsigned int i;
   int intArenaId = std::stoi(arenaId);
   int intUserId = std::stoi(userId);
   for (i = 0; i < arenas.size(); ++i){
