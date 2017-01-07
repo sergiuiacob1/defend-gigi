@@ -25,7 +25,7 @@ std::string app::getArenaInfo(const std::string& id, const std::string& userId){
   int intId = std::stoi(id);
   //int intUserId = std::stoi(userId);
   for (unsigned int i = 0; i < arenas.size(); ++i){
-    if (arenas[i].getId() == intId)
+   //if (arenas[i].getId() == intId)
       return arenas[i].getArenaInfo(userId);
   }
   std::string res = "okay";
