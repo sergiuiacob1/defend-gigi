@@ -37,16 +37,11 @@ std::string Arena::getArenaInfo(const std::string& userId){
 
   int i;
   for (i = 0; i < n; ++i){
-    if (users[i].getId() == userId){
-      res["playerPosition"]["x"] = users[i].getPosition().x;
-      res["playerPosition"]["y"] = users[i].getPosition().y;
-    }
-    else {
-      auxPos["x"] = users[i].getPosition().x;
-      auxPos["y"] = users[i].getPosition().y;
-      res["players"].push_back(auxPos);
-    }
-  }
+    auxPos["x"] = users[i].getPosition().x;
+    auxPos["y"] = users[i].getPosition().y;
+    auxPos["id"] = users[i].getId();
+    res["players"].push_back(auxPos);
+}
 
   return res.dump();
 }
