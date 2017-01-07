@@ -12,7 +12,7 @@ class User{
     int lastUpdate;
   public:
     User(const std::string& name, const std::string& id, const position& pos);
-    std::string getId() {return id;}
+    std::string getId() const {return id;}
     position getPosition() {return pos;}
     void update(const std::string& move);
 };

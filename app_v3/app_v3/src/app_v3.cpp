@@ -27,18 +27,26 @@ std::string app::getArenaInfo(const std::string& id, const std::string& userId){
   return res;
 }
 
-struct nod* arenasWithNrOfPlayers[maxUsers];
+struct nod* arenasWithNrOfPlayers[maxUsers+5];
 
 std::string app::startGame(const std::string& name, const std::string& id){
   json res;
-  //return j.dump();
-  //return "Startgame";
   srand(time(NULL));
 
   position init;
   init.x = rand() % CANVAS_WIDTH; init.y = rand() % CANVAS_HEIGHT;
   User user(name, id, init);
 
+  if (!arenas.size()){
+    Arena arena;
+    arenas.push_back(arena);
+  }
+  arenas[0].addUser(user);
+  res["userId"] = user.getId();
+  res["arenaId"] = arenas[0].getId();
+  return res.dump();
+
+  /*
   unsigned int i;
   for (i=1; i<10; ++i)
   	if (arenasWithNrOfPlayers[i])
@@ -49,17 +57,9 @@ std::string app::startGame(const std::string& name, const std::string& id){
   	arenas[tempArenaId].addUser(user);
   	pushStack(&arenasWithNrOfPlayers[arenas[tempArenaId].getNrUsers()], tempArenaId);
   	res["userId"] = user.getId();
-    res["arenaId"] = arenas[i].getId();
+    res["arenaId"] = tempArenaId;
     return res.dump();
     }
-
-  /*for (unsigned int i = 0; i < arenas.size(); ++i){
-    if (arenas[i].addUser(user)){
-      res["userId"] = user.getId();
-      res["arenaId"] = arenas[i].getId();
-      return res.dump();
-    }
-  }*/
 
   //no arenas left for the user
   //create a new arena
@@ -70,7 +70,13 @@ std::string app::startGame(const std::string& name, const std::string& id){
 
   res["userId"] = user.getId();
   res["arenaId"] = arenas[arenas.size() - 1].getId();
-  return res.dump();
+  return res.dump();*/
+}
+
+std::string app::endGame(const std::string& id){
+  if (arenas[0].removeUser (id))
+    return "Okay";
+  return "Not okay";
 }
 
 std::string app::updateArenaInfo(const std::string& arenaId, const std::string& userId, const std::string& move){
@@ -78,8 +84,9 @@ std::string app::updateArenaInfo(const std::string& arenaId, const std::string& 
   //int intUserId = std::stoi(userId);
   for (unsigned int i = 0; i < arenas.size(); ++i){
     if (arenas[i].getId() == intArenaId){
-      arenas[i].updateUser(userId, move);
+      if (arenas[i].updateUser(userId, move))
+        return "Okay";
     }
   }
-  return "Okay";
+  return "Not okay";
 }

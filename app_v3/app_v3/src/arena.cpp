@@ -17,6 +17,14 @@ bool Arena::addUser(User user){
   return true;
 }
 
+bool Arena::removeUser (const std::string& userId){
+  for (unsigned int i=0; i<users.size(); ++i)
+    if (users[i].getId() == userId){
+      users.erase (users.begin()+i);
+      return true;
+    }
+  return false;
+}
 
 std::string Arena::getArenaInfo(const std::string& userId){
   int n = users.size();
@@ -43,11 +51,13 @@ std::string Arena::getArenaInfo(const std::string& userId){
   return res.dump();
 }
 
-void Arena::updateUser(const std::string& userId, const std::string& move){
+bool Arena::updateUser(const std::string& userId, const std::string& move){
   unsigned int i;
   for (i = 0; i < users.size(); ++i){
     if (users[i].getId() == userId){
       users[i].update(move);
+      return true;
     }
   }
+  return false;
 }

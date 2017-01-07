@@ -25,6 +25,10 @@ public:
     // *method: POST
     std::string startGame(const std::string& name, const std::string& id);
 
+    // *location: /startgame?id={id}
+    // *method: POST
+    std::string endGame(const std::string& id);
+
     // *location: /update_arena_info?arenaid={arenaId}&userid={userId}&move={move}
     // *method: POST
     std::string updateArenaInfo(const std::string& arenaId, const std::string& userId, const std::string& move);
