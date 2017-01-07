@@ -4,11 +4,10 @@
 
 class ball:public collidable {
     int id;
-    double speed, angle;
     public:
-    int getId(){return id;} const;
-    double getSpeed() const {return speed;}
-    void hitPlayer (const collidable&);
+    int getId() const {return id;}
+    ball();
+    void setId(const int& newId) {id=newId;}
 };
 
 #endif

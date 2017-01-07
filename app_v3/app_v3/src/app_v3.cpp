@@ -6,10 +6,15 @@
 #include "./utils.h"
 #include "./user.h"
 #include "./arena.h"
+#include "./ball.h"
 #include <cstdlib>
 using json = nlohmann::json;
 
 std::vector <Arena> arenas;
+std::vector <ball> balls;
+
+int addUserToArena (const std::string&, const std::string&);
+void addBalls (const int&, const int&);
 
 std::string app::hello(const std::string& name){
   log(name);
@@ -27,14 +32,25 @@ std::string app::getArenaInfo(const std::string& id, const std::string& userId){
   return res;
 }
 
-struct nod* arenasWithNrOfPlayers[maxUsers+5];
-
 std::string app::startGame(const std::string& name, const std::string& id){
   json res;
+  int arenaId;
+  arenaId = addUserToArena (name, id);
+  addBalls (arenaId, 2);
+
+  res["userId"] = id;
+  res["arenaId"] = arenaId;
+  return res.dump();
+}
+
+struct nod* arenasWithNrOfPlayers[maxUsers+5];
+
+int addUserToArena (const std::string& name, const std::string& id){
   srand(time(NULL));
 
   position init;
-  init.x = rand() % CANVAS_WIDTH; init.y = rand() % CANVAS_HEIGHT;
+  init.x = rand() % CANVAS_WIDTH;
+  init.y = rand() % CANVAS_HEIGHT;
   User user(name, id, init);
 
   if (!arenas.size()){
@@ -42,9 +58,8 @@ std::string app::startGame(const std::string& name, const std::string& id){
     arenas.push_back(arena);
   }
   arenas[0].addUser(user);
-  res["userId"] = user.getId();
-  res["arenaId"] = arenas[0].getId();
-  return res.dump();
+
+  return arenas[0].getId();
 
   /*
   unsigned int i;
@@ -71,6 +86,21 @@ std::string app::startGame(const std::string& name, const std::string& id){
   res["userId"] = user.getId();
   res["arenaId"] = arenas[arenas.size() - 1].getId();
   return res.dump();*/
+
+}
+
+void addBalls (const int &arenaId, const int &nrOfBalls){
+  srand(time(NULL));
+  position init;
+  ball newBall;
+
+  for (int i=0; i<nrOfBalls; ++i){
+      init.x = rand() % CANVAS_WIDTH;
+      init.y = rand() % CANVAS_HEIGHT;
+      newBall.setPosition (init);
+      newBall.setId(balls.size());
+      balls.push_back (newBall);
+  }
 }
 
 std::string app::endGame(const std::string& id){
