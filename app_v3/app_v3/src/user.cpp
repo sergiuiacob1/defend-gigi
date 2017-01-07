@@ -17,7 +17,16 @@ void User::update(const std::string& move){
 }
 
 void User::onUpdate(const std::string& move){
-  if (move == "true") {
+  if (move == "left") {
+    pos.x -= 5;
+  }
+  else if (move == "right"){
     pos.x += 5;
+  }
+  else if (move == "up"){
+    pos.y -= 5;
+  }
+  else if (move == "down"){
+    pos.y += 5;
   }
 }
