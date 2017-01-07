@@ -6,6 +6,7 @@
 #include "./utils.h"
 #include "./user.h"
 #include "./arena.h"
+#include <cstdlib>
 using json = nlohmann::json;
 
 std::vector <Arena> arenas;
@@ -16,10 +17,9 @@ std::string app::hello(const std::string& name){
 }
 
 std::string app::getArenaInfo(const std::string& id, const std::string& userId){
-  int i;
   int intId = std::stoi(id);
   int intUserId = std::stoi(userId);
-  for (i = 0; i < arenas.size(); ++i){
+  for (unsigned int i = 0; i < arenas.size(); ++i){
     if (arenas[i].getId() == intId)
       return arenas[i].getArenaInfo(intUserId);
   }
@@ -27,26 +27,46 @@ std::string app::getArenaInfo(const std::string& id, const std::string& userId){
   return res;
 }
 
+struct nod* arenasWithNrOfPlayers[maxUsers];
+
 std::string app::startGame(const std::string& name){
   json res;
   //return j.dump();
   //return "Startgame";
-  int i;
-  position init = {0, 0};
+  srand(time(NULL));
+
+  position init;
+  init.x = rand() % CANVAS_WIDTH; init.y = rand() % CANVAS_HEIGHT;
   User user(name, init);
-  for (i = 0; i < arenas.size(); ++i){
+
+  unsigned int i;
+  for (i=1; i<10; ++i)
+  	if (arenasWithNrOfPlayers[i])
+  		break;
+
+  if (i!=10){
+  	int tempArenaId=popStack (&arenasWithNrOfPlayers[i]);
+  	arenas[tempArenaId].addUser(user);
+  	pushStack(&arenasWithNrOfPlayers[arenas[tempArenaId].getNrUsers()], tempArenaId);
+  	res["userId"] = user.getId();
+    res["arenaId"] = arenas[i].getId();
+    return res.dump();
+    }
+
+  /*for (unsigned int i = 0; i < arenas.size(); ++i){
     if (arenas[i].addUser(user)){
       res["userId"] = user.getId();
       res["arenaId"] = arenas[i].getId();
       return res.dump();
     }
-  }
+  }*/
+
   //no arenas left for the user
   //create a new arena
-
   Arena arena;
   arenas.push_back(arena);
   arenas[arenas.size() - 1].addUser(user);
+  pushStack(&arenasWithNrOfPlayers[1], arenas[arenas.size()-1].getId());
 
   res["userId"] = user.getId();
   res["arenaId"] = arenas[arenas.size() - 1].getId();
@@ -54,10 +74,9 @@ std::string app::startGame(const std::string& name){
 }
 
 std::string app::updateArenaInfo(const std::string& arenaId, const std::string& userId, const std::string& move){
-  int i;
   int intArenaId = std::stoi(arenaId);
   int intUserId = std::stoi(userId);
-  for (i = 0; i < arenas.size(); ++i){
+  for (unsigned int i = 0; i < arenas.size(); ++i){
     if (arenas[i].getId() == intArenaId){
       arenas[i].updateUser(intUserId, move);
     }
