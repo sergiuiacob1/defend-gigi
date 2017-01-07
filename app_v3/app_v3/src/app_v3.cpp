@@ -18,10 +18,10 @@ std::string app::hello(const std::string& name){
 
 std::string app::getArenaInfo(const std::string& id, const std::string& userId){
   int intId = std::stoi(id);
-  int intUserId = std::stoi(userId);
+  //int intUserId = std::stoi(userId);
   for (unsigned int i = 0; i < arenas.size(); ++i){
     if (arenas[i].getId() == intId)
-      return arenas[i].getArenaInfo(intUserId);
+      return arenas[i].getArenaInfo(userId);
   }
   std::string res = "okay";
   return res;
@@ -29,7 +29,7 @@ std::string app::getArenaInfo(const std::string& id, const std::string& userId){
 
 struct nod* arenasWithNrOfPlayers[maxUsers];
 
-std::string app::startGame(const std::string& name){
+std::string app::startGame(const std::string& name, const std::string& id){
   json res;
   //return j.dump();
   //return "Startgame";
@@ -37,7 +37,7 @@ std::string app::startGame(const std::string& name){
 
   position init;
   init.x = rand() % CANVAS_WIDTH; init.y = rand() % CANVAS_HEIGHT;
-  User user(name, init);
+  User user(name, id, init);
 
   unsigned int i;
   for (i=1; i<10; ++i)
@@ -75,10 +75,10 @@ std::string app::startGame(const std::string& name){
 
 std::string app::updateArenaInfo(const std::string& arenaId, const std::string& userId, const std::string& move){
   int intArenaId = std::stoi(arenaId);
-  int intUserId = std::stoi(userId);
+  //int intUserId = std::stoi(userId);
   for (unsigned int i = 0; i < arenas.size(); ++i){
     if (arenas[i].getId() == intArenaId){
-      arenas[i].updateUser(intUserId, move);
+      arenas[i].updateUser(userId, move);
     }
   }
   return "Okay";

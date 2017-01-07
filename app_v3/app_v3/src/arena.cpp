@@ -18,7 +18,7 @@ bool Arena::addUser(User user){
 }
 
 
-std::string Arena::getArenaInfo(int userId){
+std::string Arena::getArenaInfo(const std::string& userId){
   int n = users.size();
 
   json res;
@@ -43,7 +43,7 @@ std::string Arena::getArenaInfo(int userId){
   return res.dump();
 }
 
-void Arena::updateUser(int userId, const std::string& move){
+void Arena::updateUser(const std::string& userId, const std::string& move){
   unsigned int i;
   for (i = 0; i < users.size(); ++i){
     if (users[i].getId() == userId){

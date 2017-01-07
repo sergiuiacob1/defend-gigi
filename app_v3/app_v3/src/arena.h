@@ -15,8 +15,8 @@ class Arena {
     Arena();
     const int getId() {return id;}
     bool addUser(User);
-    std::string getArenaInfo(int userId);
-    void updateUser(int userId, const std::string& move);
+    std::string getArenaInfo(const std::string& userId);
+    void updateUser(const std::string& userId, const std::string& move);
     const int getNrUsers() {return users.size();}
 };
 

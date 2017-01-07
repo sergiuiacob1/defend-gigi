@@ -21,9 +21,9 @@ public:
     // *method: GET
     std::string getArenaInfo(const std::string& id, const std::string& userId);
 
-    // *location: /startgame?name={name}
+    // *location: /startgame?name={name}&id={id}
     // *method: POST
-    std::string startGame(const std::string& name);
+    std::string startGame(const std::string& name, const std::string& id);
 
     // *location: /update_arena_info?arenaid={arenaId}&userid={userId}&move={move}
     // *method: POST

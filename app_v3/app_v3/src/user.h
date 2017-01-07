@@ -7,12 +7,12 @@ class User{
   private:
     position pos;
     std::string name;
-    int id;
+    std::string id;
     void onUpdate(const std::string& move);
     int lastUpdate;
   public:
-    User(const std::string& name, const position& pos);
-    int getId() {return id;}
+    User(const std::string& name, const std::string& id, const position& pos);
+    std::string getId() {return id;}
     position getPosition() {return pos;}
     void update(const std::string& move);
 };

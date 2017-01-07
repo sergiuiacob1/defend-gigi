@@ -1,12 +1,9 @@
 #include "./user.h"
 
-int lastUserId = 0;
-
-User::User(const std::string& name, const position& pos){
+User::User(const std::string& name, const std::string& id, const position& pos){
   this->name = name;
   this->pos = pos;
-
-  this->id = lastUserId++;
+  this->id = id;
 
   lastUpdate = now();
 }
