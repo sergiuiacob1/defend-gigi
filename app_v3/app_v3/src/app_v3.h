@@ -25,7 +25,7 @@ public:
     // *method: POST
     std::string startGame(const std::string& name, const std::string& id);
 
-    // *location: /startgame?id={id}
+    // *location: /endgame?id={id}
     // *method: POST
     std::string endGame(const std::string& id);
 
