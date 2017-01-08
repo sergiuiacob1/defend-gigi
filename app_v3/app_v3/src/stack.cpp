@@ -1,21 +1,25 @@
 #include "./stack.h"
 
-void pushStack(nod** prim, const int& value) {
+Stack::Stack(){
+    firstElement = nullptr;
+}
+
+void Stack::pushStack(const int& value) {
     nod* newNode;
 
     newNode = new nod;
     newNode->value = value;
-    newNode->next = *prim;
-    *prim = newNode;
+    newNode->next = firstElement;
+    firstElement = newNode;
 }
 
-int popStack(nod** prim) {
-    if (!(*prim))
+int Stack::popStack() {
+    if (this->isEmpty())
         return -1;
 
-    nod* aux = *prim;
-    int result = (*prim)->value;
-    *prim = (*prim)->next;
+    nod* aux = firstElement;
+    int result = firstElement->value;
+    firstElement = firstElement->next;
     delete aux;
     return result;
 }

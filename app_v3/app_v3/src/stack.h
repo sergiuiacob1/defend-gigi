@@ -1,12 +1,15 @@
 #ifndef STACK_H
 #define STACK_H
+#include "./utils.h"
 
-struct nod{
-	int value;
-	struct nod *next;
+class Stack{
+	struct nod *firstElement;
+
+	public:
+	Stack();
+	bool isEmpty() const {return firstElement==nullptr;}
+	void pushStack(const int&);
+	int popStack();
 };
-
-void pushStack(nod**, const int&);
-int popStack(nod**);
 
 #endif

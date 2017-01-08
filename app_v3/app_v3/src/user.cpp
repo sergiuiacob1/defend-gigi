@@ -6,6 +6,8 @@ User::User(const std::string& name, const std::string& id, const position& pos){
   this->pos = pos;
   this->id = id;
 
+  this->setSheepPosition (pos);
+
   lastUpdate = now();
 }
 
@@ -15,6 +17,7 @@ void User::update(const std::string& move){
 }
  
 void User::onUpdate(const std::string& move){
+  sheep.move (move);
   if (move == "left") {
     pos.x -= DXMOV;
   }

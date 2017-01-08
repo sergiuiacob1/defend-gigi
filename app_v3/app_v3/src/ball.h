@@ -3,11 +3,10 @@
 #include "./collidable.h"
 
 class ball:public collidable {
-    int id;
+    int lastUserToHitTheBall;
     public:
-    int getId() const {return id;}
     ball();
-    void setId(const int& newId) {id=newId;}
+    void ballHit (const int &userId) {lastUserToHitTheBall=userId;}
 };
 
 #endif

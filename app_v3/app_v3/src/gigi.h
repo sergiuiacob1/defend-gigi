@@ -3,10 +3,11 @@
 #include "./collidable.h"
 
 class Gigi:public collidable {
-    int id;
     unsigned int hp;
     public:
-    Gigi(){hp=100;}
+    Gigi() {hp=100;}
+    void gotHit() {hp-=10;}
+    bool isDead() const {return hp<=0;}
 };
 
 #endif

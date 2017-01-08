@@ -10,6 +10,11 @@ struct position{
 	double x, y;
 };
 
+struct nod{
+	int value;
+	struct nod *next;
+};
+
 void log(const std::string& x);
 
 double now();

@@ -11,10 +11,12 @@
 using json = nlohmann::json;
 
 std::vector <Arena> arenas;
-std::vector <ball> balls;
+std::vector < std::vector<ball> > balls;
 
 int addUserToArena (const std::string&, const std::string&);
 void addBalls (const int&, const int&);
+void updateArena (const std::string&);
+void processCollisions (const std::string&);
 
 std::string app::hello(const std::string& name){
   log(name);
@@ -22,7 +24,9 @@ std::string app::hello(const std::string& name){
 }
 
 std::string app::getArenaInfo(const std::string& id, const std::string& userId){
-  int intId = std::stoi(id);
+  updateArena(id);
+
+  //int intId = std::stoi(id);
   //int intUserId = std::stoi(userId);
   for (unsigned int i = 0; i < arenas.size(); ++i){
    //if (arenas[i].getId() == intId)
@@ -43,7 +47,13 @@ std::string app::startGame(const std::string& name, const std::string& id){
   return res.dump();
 }
 
-struct nod* arenasWithNrOfPlayers[maxUsers+5];
+std::string app::endGame(const std::string& id){
+  if (arenas[0].removeUser (id))
+    return "Okay";
+  return "Not okay";
+}
+
+Stack arenasWithNrOfPlayers[maxUsers+5];
 
 int addUserToArena (const std::string& name, const std::string& id){
   srand(time(NULL));
@@ -64,13 +74,13 @@ int addUserToArena (const std::string& name, const std::string& id){
   /*
   unsigned int i;
   for (i=1; i<10; ++i)
-  	if (arenasWithNrOfPlayers[i])
+  	if (!arenasWithNrOfPlayers[i].isEmpty())
   		break;
 
   if (i!=10){
-  	int tempArenaId=popStack (&arenasWithNrOfPlayers[i]);
+  	int tempArenaId=arenasWithNrOfPlayers[i].popStack();
   	arenas[tempArenaId].addUser(user);
-  	pushStack(&arenasWithNrOfPlayers[arenas[tempArenaId].getNrUsers()], tempArenaId);
+    arenasWithNrOfPlayers[arenas[tempArenaId].getNrUsers()].pushStack (tempArenaId);
   	res["userId"] = user.getId();
     res["arenaId"] = tempArenaId;
     return res.dump();
@@ -81,7 +91,7 @@ int addUserToArena (const std::string& name, const std::string& id){
   Arena arena;
   arenas.push_back(arena);
   arenas[arenas.size() - 1].addUser(user);
-  pushStack(&arenasWithNrOfPlayers[1], arenas[arenas.size()-1].getId());
+  arenasWithNrOfPlayers[arenas[1].pushStack (arenas[arenas.size()-1].getId());
 
   res["userId"] = user.getId();
   res["arenaId"] = arenas[arenas.size() - 1].getId();
@@ -98,15 +108,9 @@ void addBalls (const int &arenaId, const int &nrOfBalls){
       init.x = rand() % CANVAS_WIDTH;
       init.y = rand() % CANVAS_HEIGHT;
       newBall.setPosition (init);
-      newBall.setId(balls.size());
-      balls.push_back (newBall);
+      newBall.setId(balls[arenaId].size());
+      balls[arenaId].push_back (newBall);
   }
-}
-
-std::string app::endGame(const std::string& id){
-  if (arenas[0].removeUser (id))
-    return "Okay";
-  return "Not okay";
 }
 
 std::string app::updateArenaInfo(const std::string& arenaId, const std::string& userId, const std::string& move){
@@ -119,4 +123,13 @@ std::string app::updateArenaInfo(const std::string& arenaId, const std::string& 
     }
   }
   return "Not okay";
+}
+
+void updateArena (const std::string& arenaId){
+  processCollisions (arenaId);
+}
+
+void processCollisions (const std::string& arenaId){
+  
+  return;
 }

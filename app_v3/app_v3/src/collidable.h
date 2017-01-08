@@ -7,6 +7,7 @@ class collidable{
     position pos;
     double speed, angle;
     int id;
+    
     public:
     inline position getPosition() const {return pos;}
     double getSpeed() const {return speed;}
