@@ -15,7 +15,6 @@ std::vector <Arena> arenas;
 int addUserToArena (const std::string&, const std::string&);
 void addBallsToArena (const int&, const int&);
 void updateArena (const std::string&);
-void processCollisions (const std::string&);
 
 std::string app::hello(const std::string& name){
   log(name);
@@ -127,10 +126,6 @@ std::string app::updateArenaInfo(const std::string& arenaId, const std::string& 
 }
 
 void updateArena (const std::string& arenaId){
-  processCollisions (arenaId);
-}
-
-void processCollisions (const std::string& arenaId){
-
+  arenas[std::stoi(arenaId)].processCollisions();
   return;
 }

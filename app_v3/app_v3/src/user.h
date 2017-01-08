@@ -17,6 +17,8 @@ class User{
   public:
     User(const std::string& name, const std::string& id, const position& pos);
     std::string getId() const {return id;}
+    Sheep getSheep() const {return sheep;}
+    Gigi getGigi() const {return gigi;}
     position getPosition() const {return pos;}
     position getSheepPosition() const {return sheep.getPosition();}
     position getGigiPosition() const {return gigi.getPosition();}
