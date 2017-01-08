@@ -11,10 +11,9 @@
 using json = nlohmann::json;
 
 std::vector <Arena> arenas;
-std::vector < std::vector<ball> > balls;
 
 int addUserToArena (const std::string&, const std::string&);
-void addBalls (const int&, const int&);
+void addBallsToArena (const int&, const int&);
 void updateArena (const std::string&);
 void processCollisions (const std::string&);
 
@@ -41,7 +40,7 @@ std::string app::startGame(const std::string& name, const std::string& id){
   json res;
   int arenaId;
   arenaId = addUserToArena (name, id);
-  //addBalls (arenaId, 2);
+  addBallsToArena (arenaId, 2);
 
   res["userId"] = id;
   res["arenaId"] = arenaId;
@@ -91,10 +90,9 @@ int addUserToArena (const std::string& name, const std::string& id){
   res["userId"] = user.getId();
   res["arenaId"] = arenas[arenas.size() - 1].getId();
   return res.dump();*/
-
 }
 
-void addBalls (const int &arenaId, const int &nrOfBalls){
+void addBallsToArena (const int &arenaId, const int &nrOfBalls){
   srand(time(NULL));
   position init;
   ball newBall;
@@ -103,8 +101,8 @@ void addBalls (const int &arenaId, const int &nrOfBalls){
       init.x = rand() % CANVAS_WIDTH;
       init.y = rand() % CANVAS_HEIGHT;
       newBall.setPosition (init);
-      newBall.setId(balls[arenaId].size());
-      balls[arenaId].push_back (newBall);
+      newBall.setId(arenas[arenaId].getTotalNrOfBalls() + 1);
+      arenas[arenaId].addBall (newBall);
   }
 }
 

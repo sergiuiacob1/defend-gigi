@@ -2,6 +2,7 @@
 #include "json.hpp"
 using json = nlohmann::json;
 
+int Arena::totalNrOfBalls = 0;
 int lastArenaId = 0;
 
 Arena::Arena() {
@@ -27,21 +28,27 @@ bool Arena::removeUser (const std::string& userId){
 }
 
 std::string Arena::getArenaInfo(const std::string& userId){
-  int n = users.size();
 
   json res;
   res["id"] = userId;
   res["players"] = json::array();
+  res["balls"] = json::array();
 
   json auxPos;
 
-  int i;
-  for (i = 0; i < n; ++i){
+  for (unsigned int i = 0; i < users.size(); ++i){
     auxPos["x"] = users[i].getPosition().x;
     auxPos["y"] = users[i].getPosition().y;
     auxPos["id"] = users[i].getId();
     res["players"].push_back(auxPos);
 }
+
+  for (unsigned int i = 0; i < balls.size(); ++i){
+    auxPos["x"] = balls[i].getPosition().x;
+    auxPos["y"] = balls[i].getPosition().y;
+    auxPos["id"] = balls[i].getId();
+    res["balls"].push_back(auxPos);
+  }
 
   return res.dump();
 }
