@@ -104,9 +104,11 @@ void addBalls (const int &arenaId, const int &nrOfBalls){
 }
 
 std::string app::endGame(const std::string& id){
+  json res;
   if (arenas[0].removeUser (id))
-    return "Okay";
-  return "Not okay";
+    res["output"] = "Okay";
+  res["output"] = "Not okay";
+  return res.dump();
 }
 
 std::string app::updateArenaInfo(const std::string& arenaId, const std::string& userId, const std::string& move){
