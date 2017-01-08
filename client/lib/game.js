@@ -62,7 +62,7 @@
     //initi();
   //
 
-  const ipUpdate = `http://192.168.0.139:9098/api/get_arena_info?id=0&userid=0`;
+  const ipUpdate = `http://0.0.0.0:9098/api/get_arena_info?id=0&userid=0`;
 
   const update = () => {
     //console.log(ip);
@@ -95,7 +95,7 @@
   const onClientDisconnect =  (client) => {
     util.log('Player has disconnected: ' + client.id);
 
-    const ip = `http://192.168.0.139:9098/api/endgame?id=${client.id}`;
+    const ip = `http://0.0.0.0:9098/api/endgame?id=${client.id}`;
     console.log(ip);
 
     post(ip).then((res) => {
@@ -113,7 +113,7 @@
     // Send existing players to the new player
       //client.emit('new player', {id: existingPlayer.id, x: existingPlayer.getX(), y: existingPlayer.getY(), angle: existingPlayer.getAngle()});
     const name = "costel";
-    const ip = `http://192.168.0.139:9098/api/startgame?name=${name}&id=${client.id}`;
+    const ip = `http://0.0.0.0:9098/api/startgame?name=${name}&id=${client.id}`;
     //console.log(ip);
 
     post(ip).then((res) => {
@@ -127,7 +127,7 @@
     //client.broadcast.emit('move player', {id: movePlayer.id, x: movePlayer.getX(), y: movePlayer.getY(), angle: movePlayer.getAngle()});
     //post to the c++ server
     console.log(move);
-    const ip = `http://192.168.0.139:9098/api/update_arena_info?arenaid=0&userid=${client.id}&move=${move}`;
+    const ip = `http://0.0.0.0:9098/api/update_arena_info?arenaid=0&userid=${client.id}&move=${move}`;
 
     post(ip).then((res) => {
       console.log(res);
