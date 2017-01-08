@@ -41,7 +41,7 @@ std::string app::startGame(const std::string& name, const std::string& id){
   json res;
   int arenaId;
   arenaId = addUserToArena (name, id);
-  addBalls (arenaId, 2);
+  //addBalls (arenaId, 2);
 
   res["userId"] = id;
   res["arenaId"] = arenaId;
@@ -133,6 +133,6 @@ void updateArena (const std::string& arenaId){
 }
 
 void processCollisions (const std::string& arenaId){
-  
+
   return;
 }
