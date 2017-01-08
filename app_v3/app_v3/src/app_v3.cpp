@@ -28,8 +28,9 @@ std::string app::getArenaInfo(const std::string& id, const std::string& userId){
    //if (arenas[i].getId() == intId)
       return arenas[i].getArenaInfo(userId);
   }
-  std::string res = "okay";
-  return res;
+  json res;
+  res["output"] = "okay";
+  return res.dump();
 }
 
 std::string app::startGame(const std::string& name, const std::string& id){
