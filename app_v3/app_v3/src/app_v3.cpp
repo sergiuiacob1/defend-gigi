@@ -32,8 +32,9 @@ std::string app::getArenaInfo(const std::string& id, const std::string& userId){
    //if (arenas[i].getId() == intId)
       return arenas[i].getArenaInfo(userId);
   }
-  std::string res = "okay";
-  return res;
+  json res;
+  res["output"] = "okay";
+  return res.dump();
 }
 
 std::string app::startGame(const std::string& name, const std::string& id){
@@ -45,12 +46,6 @@ std::string app::startGame(const std::string& name, const std::string& id){
   res["userId"] = id;
   res["arenaId"] = arenaId;
   return res.dump();
-}
-
-std::string app::endGame(const std::string& id){
-  if (arenas[0].removeUser (id))
-    return "Okay";
-  return "Not okay";
 }
 
 Stack arenasWithNrOfPlayers[maxUsers+5];
@@ -111,6 +106,14 @@ void addBalls (const int &arenaId, const int &nrOfBalls){
       newBall.setId(balls[arenaId].size());
       balls[arenaId].push_back (newBall);
   }
+}
+
+std::string app::endGame(const std::string& id){
+  json res;
+  if (arenas[0].removeUser (id))
+    res["output"] = "Okay";
+  res["output"] = "Not okay";
+  return res.dump();
 }
 
 std::string app::updateArenaInfo(const std::string& arenaId, const std::string& userId, const std::string& move){
