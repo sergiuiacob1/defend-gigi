@@ -9,7 +9,7 @@ module.exports = (() => {
     }).then((res) => {
       //console.log(res);
       let str = res.substring(11, res.length - 2);
-      console.log(str);
+      //console.log(str);
       return JSON.parse(str);
     }).catch((e) =>{
       console.log(e);
@@ -25,7 +25,7 @@ module.exports = (() => {
     }).then((res) => {
       //console.log(res);
       let str = res.substring(11, res.length - 2);
-      console.log(str);
+      //console.log(str);
       return JSON.parse(str);
     }).catch((e) =>{
       console.log(e);

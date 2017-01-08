@@ -73,7 +73,7 @@
     });
   };
 
-  const fps = 24
+  const fps = 25;
   setInterval(update, 1000/fps);
 
   // New socket connection
