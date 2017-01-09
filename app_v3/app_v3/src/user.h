@@ -29,6 +29,7 @@ class User{
     void setScore (const int& newScore) {score=newScore;}
 
     void update(const std::string& move);
+    void gotHit() {gigi.gotHit();}
 };
 
 #endif

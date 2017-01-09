@@ -8,6 +8,8 @@ int lastArenaId = 0;
 Arena::Arena() {
   id = lastArenaId++;
   lastUpdate = now();
+  balls.clear();
+  users.clear();
 }
 
 bool Arena::addUser(User user){
@@ -64,13 +66,17 @@ bool Arena::updateUser(const std::string& userId, const std::string& move){
   return false;
 }
 
-/*void Arena::processCollisions (){
+void Arena::processCollisions(){
   unsigned int i, j;
-
   for (i = 0; i < balls.size(); ++i)
-    for (j = 0; j < users.size(); ++j);
-      if (balls[i].hasCollided(users[j].getGigi()))
-        users[j].getGigi().gotHit();
-        
+    for (j = 0; j < users.size(); ++j)
+      if (balls[i].hasCollided(users[j].getGigi())){
+        users[j].gotHit();
+       	/*std::cout<<"GIGI GOT HIT  ";
+        std::cout<<balls[i].getPosition().x<<" "<<balls[i].getPosition().y<<" ";
+        std::cout<<users[j].getGigi().getPosition().x<<" "<<users[j].getGigi().getPosition().y<<" ";
+        std::cout<<'\n';
+        std::cout<<"GIGI VIATA: "<<users[j].getGigi().getHp()<<'\n';*/
+    }
   return;
-}*/
+}

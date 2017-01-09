@@ -20,15 +20,17 @@ class Arena {
     Arena();
     const int getId() {return id;}
     static int getTotalNrOfBalls() {return totalNrOfBalls;}
+    int getNrUsers() const {return users.size();}
+    std::string getArenaInfo(const std::string& userId);
+
     bool addUser(User);
     bool removeUser(const std::string&);
-    std::string getArenaInfo(const std::string& userId);
     bool updateUser(const std::string& userId, const std::string& move);
-    const int getNrUsers() {return users.size();}
+    
     void addBall (const ball& newBall) {balls.push_back (newBall); ++totalNrOfBalls;}
     bool removeBall (const int& id);
 
-    //void processCollisions();
+    void processCollisions();
 };
 
 #endif

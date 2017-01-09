@@ -8,6 +8,7 @@ class Gigi:public collidable {
     Gigi() {hp=100;}
     void gotHit() {hp-=10;}
     bool isDead() const {return hp<=0;}
+	int getHp() const {return hp;}
 };
 
 #endif

@@ -92,7 +92,6 @@ int addUserToArena (const std::string& name, const std::string& id){
 }
 
 void addBallsToArena (const int &arenaId, const int &nrOfBalls){
-  srand(time(NULL));
   position init;
   ball newBall;
 
@@ -130,6 +129,10 @@ std::string app::updateArenaInfo(const std::string& arenaId, const std::string& 
 }
 
 void updateArena (const std::string& arenaId){
-  //arenas[0].processCollisions();
+  if (!arenas.size())
+    return;
+
+  for (unsigned int i = 0; i<arenas.size(); ++i)
+    arenas[i].processCollisions();
   return;
 }

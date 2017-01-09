@@ -7,6 +7,7 @@ User::User(const std::string& name, const std::string& id, const position& pos){
   this->id = id;
 
   this->setSheepPosition (pos);
+  this->setGigiPosition (pos);
 
   lastUpdate = now();
 }
@@ -30,4 +31,7 @@ void User::onUpdate(const std::string& move){
   else if (move == "down"){
     pos.y += DXMOV;
   }
+
+  sheep.setPosition(pos);
+  gigi.setPosition(pos);
 }
