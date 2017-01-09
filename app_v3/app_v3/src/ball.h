@@ -7,6 +7,7 @@ class ball:public collidable {
     public:
     ball();
     void ballHit (const int &userId) {lastUserToHitTheBall=userId;}
+    void move (const int &dx) {position pos=this->getPosition(); pos.x+=dx; this->setPosition(pos);}
 };
 
 #endif

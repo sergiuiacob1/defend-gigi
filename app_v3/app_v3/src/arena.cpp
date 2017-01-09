@@ -72,6 +72,7 @@ void Arena::processCollisions(){
     for (j = 0; j < users.size(); ++j)
       if (balls[i].hasCollided(users[j].getGigi())){
         users[j].gotHit();
+        balls[i].move (5);
        	/*std::cout<<"GIGI GOT HIT  ";
         std::cout<<balls[i].getPosition().x<<" "<<balls[i].getPosition().y<<" ";
         std::cout<<users[j].getGigi().getPosition().x<<" "<<users[j].getGigi().getPosition().y<<" ";

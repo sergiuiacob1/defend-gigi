@@ -2,10 +2,12 @@ var game = new Phaser.Game(800, 600, Phaser.AUTO, 'phaser-example', { preload: p
 
 function preload() {
   game.load.image('phaser', 'assets/dude2.png');
+  game.load.image('ballImage', 'assets/ball.png');
 }
 
 var socket // Socket connection
 var sprite;
+var ballImg;
 
 var upKey;
 var downKey;
@@ -14,15 +16,24 @@ var rightKey;
 
 var nbEnemies = 10;
 var enemies = [];
+var nrBalls = 20;
+var balls = [];
 
 function create() {
   socket = io.connect();
   game.stage.backgroundColor = '#736357';
   sprite = game.add.sprite(300, 300, 'phaser');
+  ballImg = game.add.sprite (10, 10, 'ballImage');
+  ballImg.scale.setTo (0.05, 0.05);
 
   for (var i = 0; i < nbEnemies; ++i)
     enemies.push(game.add.sprite(300, 300, 'phaser'));
   //  In this example we'll create 4 specific keys (up, down, left, right) and monitor them in our update function
+
+  for (var i = 0; i < nrBalls; ++i){
+    balls.push(game.add.sprite (10, 10, 'ballImage'));
+    balls[i].scale.setTo (0.05, 0.05);
+  }
 
   upKey = game.input.keyboard.addKey(Phaser.Keyboard.UP);
   downKey = game.input.keyboard.addKey(Phaser.Keyboard.DOWN);
@@ -65,6 +76,11 @@ function onUpdateArena(data) {
   for (; curr < nbEnemies; ++curr){
     enemies[curr].x = 1000;
     enemies[curr].y = 1000;
+  }
+
+  for (var i = 0; i < data.balls.length; ++i){
+    balls[i].x = data.balls[i].x;
+    balls[i].y = data.balls[i].y;
   }
 }
 
