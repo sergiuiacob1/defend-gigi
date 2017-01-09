@@ -73,7 +73,7 @@
     });
   };
 
-  const fps = 25;
+  const fps = 10;
   setInterval(update, 1000/fps);
 
   // New socket connection
@@ -98,9 +98,9 @@
     const ip = `http://0.0.0.0:9098/api/endgame?id=${client.id}`;
     console.log(ip);
 
-    post(ip).then((res) => {
+    post(ip);/*.then((res) => {
       console.log(res);
-    });
+    });*/
     //var removePlayer = playerById(client.id);
   };
 
@@ -116,9 +116,9 @@
     const ip = `http://0.0.0.0:9098/api/startgame?name=${name}&id=${client.id}`;
     //console.log(ip);
 
-    post(ip).then((res) => {
+    post(ip);/*.then((res) => {
       console.log(res);
-    });
+    });*/
 
   };
 
@@ -126,12 +126,12 @@
   const onMovePlayer = (move, client) => {
     //client.broadcast.emit('move player', {id: movePlayer.id, x: movePlayer.getX(), y: movePlayer.getY(), angle: movePlayer.getAngle()});
     //post to the c++ server
-    console.log(move);
+    //console.log(move);
     const ip = `http://0.0.0.0:9098/api/update_arena_info?arenaid=0&userid=${client.id}&move=${move}`;
 
-    post(ip).then((res) => {
+    post(ip);/*.then((res) => {
       console.log(res);
-    });
+    });*/
   };
 
   /* ************************************************

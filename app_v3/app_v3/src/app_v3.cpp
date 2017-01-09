@@ -115,15 +115,19 @@ std::string app::endGame(const std::string& id){
 }
 
 std::string app::updateArenaInfo(const std::string& arenaId, const std::string& userId, const std::string& move){
+  json res;
   int intArenaId = std::stoi(arenaId);
   //int intUserId = std::stoi(userId);
   for (unsigned int i = 0; i < arenas.size(); ++i){
     if (arenas[i].getId() == intArenaId){
-      if (arenas[i].updateUser(userId, move))
-        return "Okay";
+      if (arenas[i].updateUser(userId, move)){
+        res["output"] = "Okay";
+        return res.dump();
+      }
     }
   }
-  return "Not okay";
+  res["output"] = "not okay";
+  return res.dump();
 }
 
 void updateArena (const std::string& arenaId){

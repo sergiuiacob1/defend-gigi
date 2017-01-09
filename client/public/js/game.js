@@ -83,7 +83,7 @@ function onSocketDisconnect () {
 }
 
 function update() {
-  var move;
+  var move = "none";
   if (upKey.isDown){
     move = "up";
   } else if (downKey.isDown){
