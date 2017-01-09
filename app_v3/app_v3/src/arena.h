@@ -27,6 +27,8 @@ class Arena {
     const int getNrUsers() {return users.size();}
     void addBall (const ball& newBall) {balls.push_back (newBall); ++totalNrOfBalls;}
     bool removeBall (const int& id);
+
+    void processCollisions();
 };
 
 #endif
