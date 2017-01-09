@@ -130,6 +130,6 @@ std::string app::updateArenaInfo(const std::string& arenaId, const std::string& 
 }
 
 void updateArena (const std::string& arenaId){
-  arenas[std::stoi(arenaId)].processCollisions();
+  //arenas[0].processCollisions();
   return;
 }

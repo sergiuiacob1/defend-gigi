@@ -28,7 +28,7 @@ class Arena {
     void addBall (const ball& newBall) {balls.push_back (newBall); ++totalNrOfBalls;}
     bool removeBall (const int& id);
 
-    void processCollisions();
+    //void processCollisions();
 };
 
 #endif

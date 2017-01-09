@@ -64,12 +64,13 @@ bool Arena::updateUser(const std::string& userId, const std::string& move){
   return false;
 }
 
-void Arena::processCollisions (){
+/*void Arena::processCollisions (){
   unsigned int i, j;
+
   for (i = 0; i < balls.size(); ++i)
-    for (j = 0; j < users.size(); ++j)
+    for (j = 0; j < users.size(); ++j);
       if (balls[i].hasCollided(users[j].getGigi()))
         users[j].getGigi().gotHit();
         
   return;
-}
+}*/
