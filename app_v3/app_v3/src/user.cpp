@@ -1,5 +1,4 @@
 #include "./user.h"
-#define DXMOV 5
 
 User::User(const std::string& name, const std::string& id, const position& pos){
   this->name = name;
@@ -18,17 +17,17 @@ void User::update(const std::string& move){
 }
  
 void User::onUpdate(const std::string& move){
-  sheep.move (move);
-  if (move == "left") {
+  //sheep.move (move);
+  if (move == "left" && this->getSheep().canMove ("left")) {
     pos.x -= DXMOV;
   }
-  else if (move == "right"){
+  else if (move == "right" && this->getSheep().canMove ("right")){
     pos.x += DXMOV;
   }
-  else if (move == "up"){
+  else if (move == "up" && this->getSheep().canMove ("up")){
     pos.y -= DXMOV;
   }
-  else if (move == "down"){
+  else if (move == "down" && this->getSheep().canMove ("down")){
     pos.y += DXMOV;
   }
 

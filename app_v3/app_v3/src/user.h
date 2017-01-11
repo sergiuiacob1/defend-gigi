@@ -27,6 +27,7 @@ class User{
     void setSheepPosition (const position& newPos) {sheep.setPosition (newPos);}
     void setGigiPosition (const position& newPos) {gigi.setPosition (newPos);}
     void setScore (const int& newScore) {score=newScore;}
+    void incrementScore (const int& addToScore) {score += addToScore;}
 
     void update(const std::string& move);
     void gotHit() {gigi.gotHit();}

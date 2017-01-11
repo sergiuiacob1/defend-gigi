@@ -66,13 +66,23 @@ bool Arena::updateUser(const std::string& userId, const std::string& move){
   return false;
 }
 
+inline void addScoreToUser (const std::string&);
 void Arena::processCollisions(){
   unsigned int i, j;
   for (i = 0; i < balls.size(); ++i)
     for (j = 0; j < users.size(); ++j)
       if (balls[i].hasCollided(users[j].getGigi())){
-        users[j].gotHit();
         balls[i].move (5);
+        
+        if (balls[i].getLastUserToHitTheBall() == users[j].getId())
+          continue;
+
+
+
+        users[j].gotHit();
+
+        this->addScoreToUser (balls[i].getLastUserToHitTheBall());
+        balls[i].setLastUserToHitTheBall (users[j].getId());
        	/*std::cout<<"GIGI GOT HIT  ";
         std::cout<<balls[i].getPosition().x<<" "<<balls[i].getPosition().y<<" ";
         std::cout<<users[j].getGigi().getPosition().x<<" "<<users[j].getGigi().getPosition().y<<" ";
@@ -80,4 +90,14 @@ void Arena::processCollisions(){
         std::cout<<"GIGI VIATA: "<<users[j].getGigi().getHp()<<'\n';*/
     }
   return;
+}
+
+inline void Arena::addScoreToUser (const std::string& userId){
+  unsigned int i;
+  for (i = 0; i < users.size(); ++i)
+    if (users[i].getId() == userId){
+      users[i].incrementScore (10);
+      std::cout << users[i].getScore()<<'\n';
+      return;
+    }
 }

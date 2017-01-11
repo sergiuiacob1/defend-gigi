@@ -31,6 +31,7 @@ class Arena {
     bool removeBall (const int& id);
 
     void processCollisions();
+    inline void addScoreToUser (const std::string&);
 };
 
 #endif
