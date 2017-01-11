@@ -1,7 +1,7 @@
 #ifndef UTILS_H
 #define UTILS_H
-#define CANVAS_WIDTH 800
-#define CANVAS_HEIGHT 800
+#define CANVAS_WIDTH 1800
+#define CANVAS_HEIGHT 1800
 #define DXMOV 5
 #include <iostream>
 #include <cstring>

@@ -48,6 +48,7 @@ std::string Arena::getArenaInfo(const std::string& userId){
     res["players"].push_back(auxPos);
 
     res["score"] = users[i].getScore();
+    res["hp"] = users[i].getGigi().getHp();
 }
 
   for (unsigned int i = 0; i < balls.size(); ++i){

@@ -6,8 +6,8 @@ function preload() {
 }
 
 var socket // Socket connection
-var sprite;
-var ballImg;
+var dude;
+var ball;
 
 var upKey;
 var downKey;
@@ -20,11 +20,23 @@ var nrBalls = 20;
 var balls = [];
 
 function create() {
+  game.world.setBounds(0, 0, 1920, 1920);
+
   socket = io.connect();
   game.stage.backgroundColor = '#736357';
-  sprite = game.add.sprite(300, 300, 'phaser');
-  ballImg = game.add.sprite (10, 10, 'ballImage');
-  ballImg.scale.setTo (0.05, 0.05);
+  dude = game.add.sprite(300, 300, 'phaser');
+  ball = game.add.sprite (10, 10, 'ballImage');
+  ball.scale.setTo (0.05, 0.05);
+
+  game.camera.follow (dude);
+  
+  /*game.physics.startSystem(Phaser.Physics.ARCADE);
+  game.physics.enable([dude,ball], Phaser.Physics.ARCADE);
+  dude.body.immovable = true;
+  ball.body.collideWorldBounds = true;
+  ball.body.velocity.setTo(200, 200);
+  ball.body.bounce.setTo(1, 1);*/
+    
 
   for (var i = 0; i < nbEnemies; ++i)
     enemies.push(game.add.sprite(300, 300, 'phaser'));
@@ -43,6 +55,8 @@ function create() {
   var style = { font: "32px Arial", fill: "#ffffff", align: "center", backgroundColor: "#000000" };
 
   text = game.add.text(0, 0, "Score: 0", style);
+  text.fixedToCamera = true;
+  text.cameraOffset.setTo(0,0);
 
   setEventHandlers();
 }
@@ -72,9 +86,9 @@ function onUpdateArena(data) {
       }
     }
     else {
-      sprite.x = data.players[i].x;
-      sprite.y = data.players[i].y;
-      text.setText("Score: " + data.score);
+      dude.x = data.players[i].x;
+      dude.y = data.players[i].y;
+      text.setText("Score: " + data.score + "\nHp: " + data.hp);
     }
   }
 
@@ -104,6 +118,8 @@ function onSocketDisconnect () {
 }
 
 function update() {
+  //game.physics.arcade.collide(dude, ball);
+
   var move = "none";
   if (upKey.isDown){
     move = "up";
