@@ -40,6 +40,10 @@ function create() {
   leftKey = game.input.keyboard.addKey(Phaser.Keyboard.LEFT);
   rightKey = game.input.keyboard.addKey(Phaser.Keyboard.RIGHT);
 
+  var style = { font: "32px Arial", fill: "#ffffff", align: "center", backgroundColor: "#000000" };
+
+  text = game.add.text(0, 0, "Score: 0", style);
+
   setEventHandlers();
 }
 
@@ -70,6 +74,7 @@ function onUpdateArena(data) {
     else {
       sprite.x = data.players[i].x;
       sprite.y = data.players[i].y;
+      text.setText("Score: " + data.score);
     }
   }
 

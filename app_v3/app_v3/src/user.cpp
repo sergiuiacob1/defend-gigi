@@ -9,6 +9,8 @@ User::User(const std::string& name, const std::string& id, const position& pos){
   this->setGigiPosition (pos);
 
   lastUpdate = now();
+
+  score = 0;
 }
 
 void User::update(const std::string& move){
