@@ -112,7 +112,7 @@
 
     // Send existing players to the new player
       //client.emit('new player', {id: existingPlayer.id, x: existingPlayer.getX(), y: existingPlayer.getY(), angle: existingPlayer.getAngle()});
-    const name = "costel";
+    const name = data.name;
     const ip = `http://0.0.0.0:9098/api/startgame?name=${name}&id=${client.id}`;
     //console.log(ip);
 

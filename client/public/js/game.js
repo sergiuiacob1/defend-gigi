@@ -37,6 +37,10 @@ function create() {
   style = { font: "15px Arial", fill: "#ffffff" };
   dude.name = dude.game.add.text (0, -10, "<" + dudeName + ">", style); 
   dude.addChild(dude.name);
+  if (dude.width < dude.name.width)
+    dude.name.x = -(dude.name.width/2 - dude.width/2)
+    else
+    dude.name.x = dude.width/2 - dude.name.width/2;
 
   ball = game.add.sprite (10, 10, 'ballImage');
   ball.scale.setTo (0.05, 0.05);
@@ -44,15 +48,15 @@ function create() {
   game.camera.follow (dude);
   game.time.advancedTiming = true;
 
-  /*game.physics.startSystem(Phaser.Physics.ARCADE);
-  game.physics.enable([dude,ball], Phaser.Physics.ARCADE);
-  dude.body.immovable = true;
-  ball.body.collideWorldBounds = true;
-  ball.body.velocity.setTo(200, 200);
-  ball.body.bounce.setTo(1, 1);*/
-
   for (var i = 0; i < nbEnemies; ++i){
     enemies.push(game.add.sprite(2000, 2000, 'phaser'));
+    enemies[i].name = enemies[i].game.add.text (0, -10, "noname", style); 
+    enemies[i].addChild(enemies[i].name);
+
+    if (enemies[i].width < enemies[i].name.width)
+      enemies[i].name.x = -(enemies[i].name.width/2 - enemies[i].width/2);
+      else
+      enemies[i].name.x = enemies[i].width/2 - enemies[i].name.width/2;
   }
 
   for (var i = 0; i < nrBalls; ++i){
@@ -98,6 +102,7 @@ function onUpdateArena(data) {
       if (curr < nbEnemies){
         enemies[curr].x = data.players[i].x;
         enemies[curr].y = data.players[i].y;
+        enemies[curr].name.setText(data.players[i].name);
         ++curr;
       }
     }
@@ -125,7 +130,7 @@ function onSocketConnected () {
   console.log(this.id);
 
   // Send local player data to the game server
-  socket.emit('new player', {});
+  socket.emit('new player', {name: dudeName});
 }
 
 // Socket disconnected
