@@ -44,7 +44,7 @@ function create() {
 
 
   for (var i = 0; i < nbEnemies; ++i)
-    enemies.push(game.add.sprite(300, 300, 'phaser'));
+    enemies.push(game.add.sprite(2000, 2000, 'phaser'));
   //  In this example we'll create 4 specific keys (up, down, left, right) and monitor them in our update function
 
   for (var i = 0; i < nrBalls; ++i){
@@ -101,8 +101,8 @@ function onUpdateArena(data) {
   }
 
   for (; curr < nbEnemies; ++curr){
-    enemies[curr].x = 1000;
-    enemies[curr].y = 1000;
+    enemies[curr].x = 2000;
+    enemies[curr].y = 2000;
   }
 
   for (var i = 0; i < data.balls.length; ++i){
