@@ -1,4 +1,4 @@
-var game = new Phaser.Game(800, 600, Phaser.AUTO, 'phaser-example', { preload: preload, create: create, update: update });
+var game = new Phaser.Game(1300, 700, Phaser.AUTO, 'phaser-example', { preload: preload, create: create, update: update, render: render });
 
 function preload() {
   game.load.image('phaser', 'assets/dude2.png');
@@ -19,6 +19,10 @@ var enemies = [];
 var nrBalls = 20;
 var balls = [];
 
+function render(){
+  game.debug.text(game.time.fps, 2, 14, "#00ff00");
+}
+
 function create() {
   game.world.setBounds(0, 0, 1920, 1920);
 
@@ -29,14 +33,15 @@ function create() {
   ball.scale.setTo (0.05, 0.05);
 
   game.camera.follow (dude);
-  
+  game.time.advancedTiming = true;
+
   /*game.physics.startSystem(Phaser.Physics.ARCADE);
   game.physics.enable([dude,ball], Phaser.Physics.ARCADE);
   dude.body.immovable = true;
   ball.body.collideWorldBounds = true;
   ball.body.velocity.setTo(200, 200);
   ball.body.bounce.setTo(1, 1);*/
-    
+
 
   for (var i = 0; i < nbEnemies; ++i)
     enemies.push(game.add.sprite(300, 300, 'phaser'));
@@ -75,6 +80,9 @@ var setEventHandlers = function () {
 function onUpdateArena(data) {
   //console.log("data");
   //console.log(data);
+
+  if (data.players == undefined)
+    return;
 
   var curr = 0;
   for (var i = 0; i < data.players.length; ++i){
@@ -132,5 +140,8 @@ function update() {
   } else if (rightKey.isDown){
     move = "right";
   }
+
+  //if (move != "none")
+    //setTimeout(function(){dude.x +=3;}, 1000/10);
   socket.emit('move player', move);
 }
