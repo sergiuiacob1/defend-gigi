@@ -8,6 +8,8 @@ function preload() {
 var socket // Socket connection
 var dude;
 var ball;
+var dudeName;
+var style;
 
 var upKey;
 var downKey;
@@ -26,9 +28,16 @@ function render(){
 function create() {
   game.world.setBounds(0, 0, 1920, 1920);
 
+  dudeName = prompt("Please enter your name", "Player Name");
   socket = io.connect();
+
   game.stage.backgroundColor = '#736357';
   dude = game.add.sprite(300, 300, 'phaser');
+
+  style = { font: "15px Arial", fill: "#ffffff" };
+  dude.name = dude.game.add.text (0, -10, "<" + dudeName + ">", style); 
+  dude.addChild(dude.name);
+
   ball = game.add.sprite (10, 10, 'ballImage');
   ball.scale.setTo (0.05, 0.05);
 
@@ -42,10 +51,9 @@ function create() {
   ball.body.velocity.setTo(200, 200);
   ball.body.bounce.setTo(1, 1);*/
 
-
-  for (var i = 0; i < nbEnemies; ++i)
+  for (var i = 0; i < nbEnemies; ++i){
     enemies.push(game.add.sprite(2000, 2000, 'phaser'));
-  //  In this example we'll create 4 specific keys (up, down, left, right) and monitor them in our update function
+  }
 
   for (var i = 0; i < nrBalls; ++i){
     balls.push(game.add.sprite (10, 10, 'ballImage'));
@@ -57,7 +65,7 @@ function create() {
   leftKey = game.input.keyboard.addKey(Phaser.Keyboard.LEFT);
   rightKey = game.input.keyboard.addKey(Phaser.Keyboard.RIGHT);
 
-  var style = { font: "32px Arial", fill: "#ffffff", align: "center", backgroundColor: "#000000" };
+  style = { font: "32px Arial", fill: "#ffffff", align: "center", backgroundColor: "#000000" };
 
   text = game.add.text(0, 0, "Score: 0", style);
   text.fixedToCamera = true;

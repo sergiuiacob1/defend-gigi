@@ -45,6 +45,7 @@ std::string Arena::getArenaInfo(const std::string& userId){
     auxPos["x"] = users[i].getPosition().x;
     auxPos["y"] = users[i].getPosition().y;
     auxPos["id"] = users[i].getId();
+    auxPos["name"] = users[i].getName();
     res["players"].push_back(auxPos);
 
     res["score"] = users[i].getScore();
