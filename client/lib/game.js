@@ -7,7 +7,6 @@
   const io = require('socket.io');
   const {get, post} = require('./request.js');
 
-  const Player = require('./Player');
 
   const port = process.env.PORT || 8080;
 
