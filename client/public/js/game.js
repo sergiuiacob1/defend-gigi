@@ -35,7 +35,7 @@ function create() {
   dude = game.add.sprite(300, 300, 'phaser');
 
   style = { font: "15px Arial", fill: "#ffffff" };
-  dude.name = dude.game.add.text (0, -10, "<" + dudeName + ">", style); 
+  dude.name = dude.game.add.text (0, -10, "<" + dudeName + ">", style);
   dude.addChild(dude.name);
   if (dude.width < dude.name.width)
     dude.name.x = -(dude.name.width/2 - dude.width/2)
@@ -50,7 +50,7 @@ function create() {
 
   for (var i = 0; i < nbEnemies; ++i){
     enemies.push(game.add.sprite(2000, 2000, 'phaser'));
-    enemies[i].name = enemies[i].game.add.text (0, -10, "noname", style); 
+    enemies[i].name = enemies[i].game.add.text (0, -10, "noname", style);
     enemies[i].addChild(enemies[i].name);
 
     if (enemies[i].width < enemies[i].name.width)
@@ -139,20 +139,24 @@ function onSocketDisconnect () {
 }
 
 function update() {
-  //game.physics.arcade.collide(dude, ball);
 
-  var move = "none";
+  var move = "";
   if (upKey.isDown){
-    move = "up";
+    move += "up";
   } else if (downKey.isDown){
-    move = "down";
+    move += "down";
   }
 
   if (leftKey.isDown){
-    move = "left";
+    move += "left";
   } else if (rightKey.isDown){
-    move = "right";
+    move += "right";
   }
+
+  if (move == "")
+    move = "none";
+
+  console.log(move);
 
   //if (move != "none")
     //setTimeout(function(){dude.x +=3;}, 1000/10);
