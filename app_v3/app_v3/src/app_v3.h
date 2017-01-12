@@ -33,6 +33,10 @@ public:
     // *method: POST
     std::string updateArenaInfo(const std::string& arenaId, const std::string& userId, const std::string& move);
 
+    // *location: /fire?arenaid={arenaId}&userid={userId}&x={x}&y={y}
+    // *method: POST
+    std::string fire(const std::string& arenaId, const std::string& userId, const std::string& x, const std::string& y);
+
 };
 
 

@@ -84,8 +84,6 @@ void Arena::processCollisions(){
         if (balls[i].getLastUserToHitTheBall() == users[j].getId())
           continue;
 
-
-
         users[j].gotHit();
 
         this->addScoreToUser (balls[i].getLastUserToHitTheBall());

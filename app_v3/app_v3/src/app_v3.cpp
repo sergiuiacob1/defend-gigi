@@ -8,13 +8,17 @@
 #include "./arena.h"
 #include "./ball.h"
 #include <cstdlib>
+#define DXLOOP 100
+
 using json = nlohmann::json;
 
 std::vector <Arena> arenas;
+unsigned long long int lastLoopUpdate;
 
 int addUserToArena (const std::string&, const std::string&);
 void addBallsToArena (const int&, const int&);
 void updateArena (const std::string&);
+void gameLoop();
 
 std::string app::hello(const std::string& name){
   log(name);
@@ -129,6 +133,11 @@ std::string app::updateArenaInfo(const std::string& arenaId, const std::string& 
 }
 
 void updateArena (const std::string& arenaId){
+  if (now() - lastLoopUpdate >= DXLOOP){
+    lastLoopUpdate = now();
+    gameLoop();
+  }
+
   if (!arenas.size())
     return;
 
@@ -137,4 +146,13 @@ void updateArena (const std::string& arenaId){
     //moveBalls();
   }
   return;
+}
+
+void gameLoop(){
+
+}
+
+std::string app::fire(const std::string& arenaId, const std::string& userId, const std::string& x, const std::string& y){
+  
+  return "costel";
 }
