@@ -16,6 +16,7 @@ var texture;
 var style;
 var scoreboard;
 var gameover;
+var dudeIsDead;
 
 var upKey;
 var downKey;
@@ -88,7 +89,7 @@ function create() {
   scoreboard.fixedToCamera = true;
   scoreboard.cameraOffset.setTo (window.innerWidth - scoreboard.width, 0);
   scoreboard.players = [];
-  
+
   /*for (var i = 0; i < 5; ++i){
     scoreboard.players[i] = game.add.text (0, 10 * (i+1), "player1", style);
     //scoreboard.addChild (scoreboard.players[i]);
@@ -125,13 +126,9 @@ function onUpdateArena(data) {
   if (data.players == undefined)
     return;
 
-  /*if (data.dead == "false"){
-    gameover = game.add.sprite (dude.x, dude.y, 'gameover'); 
-    return;
-}*/
-
   var i;
   var curr = 0;
+  dudeIsDead = true;
   for (i = 0; i < data.players.length; ++i){
     if (data.players[i].id != this.id) {
       if (curr < nbEnemies){
@@ -144,12 +141,9 @@ function onUpdateArena(data) {
     else {
       dude.x = data.players[i].x;
       dude.y = data.players[i].y;
+      dudeIsDead = false;
       //console.log(data.players[i]);
       text.setText("Score: " + data.players[i].score + "\nHp: " + data.players[i].hp);
-
-      if (data.players[i].hp == "0"){
-        gameover = game.add.sprite (0, 0, 'gameover');
-      }
     }
   }
 
@@ -177,6 +171,11 @@ function onUpdateArena(data) {
     balls[i].x = 2000;
     balls[i].y = 2000;
   }
+
+  if (dudeIsDead)
+      gameover = game.add.sprite (dude.x, dude.y,'gameover');
+      //else
+      //gameover.destroy();
 }
 
 // Socket connected

@@ -39,8 +39,6 @@ bool Arena::removeUser (const std::string& userId){
 }
 
 std::string Arena::getArenaInfo(const std::string& userId){
-  bool userIsDead = true;
-
   json res;
   res["id"] = userId;
   res["players"] = json::array();
@@ -49,7 +47,7 @@ std::string Arena::getArenaInfo(const std::string& userId){
 
   json auxPos;
 
-  for (unsigned int i = 0; i < users.size(); ++i){
+  for (int i = 0; i < users.size(); ++i){
     auxPos["x"] = users[i].getPosition().x;
     auxPos["y"] = users[i].getPosition().y;
     auxPos["id"] = users[i].getId();
@@ -57,10 +55,6 @@ std::string Arena::getArenaInfo(const std::string& userId){
     auxPos["score"] = users[i].getScore();
     auxPos["hp"] = users[i].getGigi().getHp();
     res["players"].push_back(auxPos);
-
-    if (users[i].getId() == userId)
-      userIsDead = false;
-    std::cout<<users[i].getId()<<" "<<userId<<'\n';
   }
 
   if (users.size())
@@ -81,11 +75,6 @@ std::string Arena::getArenaInfo(const std::string& userId){
     res["balls"].push_back(auxPos3);
   }
 
-  if (userIsDead)
-    res["dead"] = "true";
-  else
-    res["dead"] = "false";
-
   return res.dump();
 }
 
@@ -102,14 +91,13 @@ bool Arena::updateUser(const std::string& userId, const std::string& move){
 
 inline void addScoreToUser (const std::string&);
 void Arena::processCollisions(){
-  unsigned int i, j;
+  int i, j;
   bool removeThisBall;
   for (i = 0; i < balls.size(); ++i){
     removeThisBall = false;
 
     for (j = 0; j < users.size(); ++j)
       if (balls[i].hasCollided(users[j].getGigi())){
-
         if (balls[i].getLastUserToHitTheBall() == users[j].getId())
           continue;
 
@@ -117,14 +105,15 @@ void Arena::processCollisions(){
         users[j].gotHit();
 
         if (users[j].getGigi().isDead()){
-          this->removeUser (users[j].getId());
-          --j;
+          users.erase (users.begin() + j); --j;
         }
 
         removeThisBall = true;
     }
-    if (removeThisBall)
+    if (removeThisBall){
       this->removeBall(balls[i].getId());
+      --i;
+    }
   }
   return;
 }
