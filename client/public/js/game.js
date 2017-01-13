@@ -3,12 +3,15 @@ var game = new Phaser.Game(window.innerWidth, window.innerHeight, Phaser.AUTO, '
 function preload() {
   game.load.image('phaser', 'assets/dude2.png');
   game.load.image('ballImage', 'assets/ball.png');
+  game.load.image('grid', 'assets/map.png');
 }
 
 var socket // Socket connection
 var dude;
 var ball;
+var land;
 var dudeName;
+var texture;
 var style;
 
 var upKey;
@@ -28,11 +31,13 @@ function render(){
 
 function create() {
   game.world.setBounds(0, 0, 1920, 1920);
+  game.add.sprite(0, 0, 'grid');
+
 
   dudeName = prompt("Please enter your name", "Player Name");
   socket = io.connect();
 
-  game.stage.backgroundColor = '#736357';
+  //game.stage.backgroundColor = '#736357';
   dude = game.add.sprite(300, 300, 'phaser');
 
   style = { font: "15px Arial", fill: "#ffffff" };
