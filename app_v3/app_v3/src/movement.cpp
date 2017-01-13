@@ -59,10 +59,10 @@ void Movement::onUpdate(){
   xCurr += semnx * mx;
   yCurr += semny * my;
 
-  int auxX = mod(xCurr - xDest);// auxX = auxX<0?(-auxX):auxX;
+  /*int auxX = mod(xCurr - xDest);// auxX = auxX<0?(-auxX):auxX;
   int auxY = mod(yCurr - yDest);// auxY = auxY<0?(-auxY):auxY;
   if (auxX <= 6 && auxY <= 6)
-    running = false;
+    running = false;*/
 }
 
 void Movement::update(){
