@@ -38,3 +38,9 @@ bool collidable::canMove (const std::string& direction) const {
 
   return false;
 }
+
+bool collidable::isOutsideMap() const {
+  if (pos.x<=0 || pos.x>=CANVAS_WIDTH || pos.y<=0 || pos.y>=CANVAS_HEIGHT)
+    return true;
+  return false;
+}

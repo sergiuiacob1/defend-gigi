@@ -150,7 +150,7 @@ void updateArena (const std::string& arenaId){
 }
 
 void gameLoop(){
-  for (int i = 0; i < arenas.size(); ++i){
+  for (unsigned int i = 0; i < arenas.size(); ++i){
     arenas[i].update();
   }
 }
