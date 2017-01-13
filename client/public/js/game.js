@@ -134,7 +134,8 @@ function onUpdateArena(data) {
     else {
       dude.x = data.players[i].x;
       dude.y = data.players[i].y;
-      text.setText("Score: " + data.score + "\nHp: " + data.hp);
+      //console.log(data.players[i]);
+      text.setText("Score: " + data.players[i].score + "\nHp: " + data.players[i].hp);
     }
   }
 
@@ -156,7 +157,7 @@ function onUpdateArena(data) {
     balls[i].y = data.balls[i].y;
   }
 
-  console.log(data.balls.length);
+  //console.log(data.balls.length);
   for (i = data.balls.length; i < MAX_BALLS; ++i){
     balls[i].x = 2000;
     balls[i].y = 2000;

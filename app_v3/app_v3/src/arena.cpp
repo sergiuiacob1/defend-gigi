@@ -43,6 +43,7 @@ std::string Arena::getArenaInfo(const std::string& userId){
   res["id"] = userId;
   res["players"] = json::array();
   res["balls"] = json::array();
+  res["scoreboard"] = json::array();
 
   json auxPos;
 
@@ -51,24 +52,26 @@ std::string Arena::getArenaInfo(const std::string& userId){
     auxPos["y"] = users[i].getPosition().y;
     auxPos["id"] = users[i].getId();
     auxPos["name"] = users[i].getName();
+    auxPos["score"] = users[i].getScore();
+    auxPos["hp"] = users[i].getGigi().getHp();
     res["players"].push_back(auxPos);
 
-    res["score"] = users[i].getScore();
-    res["hp"] = users[i].getGigi().getHp();
   }
 
   sort (users.begin(), users.begin() + users.size(), cmp);
+  json auxPos2;
   for (unsigned int i = 0; i < users.size() && i<5; ++i){
-    auxPos["name"] = users[i].getName();
-    auxPos["score"] = users[i].getScore();
-    res["scoreboard"].push_back (auxPos);
+    auxPos2["name"] = users[i].getName();
+    auxPos2["score"] = users[i].getScore();
+    res["scoreboard"].push_back (auxPos2);
   }
 
+  json auxPos3;
   for (unsigned int i = 0; i < balls.size(); ++i){
-    auxPos["x"] = balls[i].getX();
-    auxPos["y"] = balls[i].getY();
-    auxPos["id"] = balls[i].getId();
-    res["balls"].push_back(auxPos);
+    auxPos3["x"] = balls[i].getX();
+    auxPos3["y"] = balls[i].getY();
+    auxPos3["id"] = balls[i].getId();
+    res["balls"].push_back(auxPos3);
   }
 
   return res.dump();
