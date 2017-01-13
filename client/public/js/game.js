@@ -1,7 +1,7 @@
 var game = new Phaser.Game(window.innerWidth, window.innerHeight, Phaser.AUTO, 'phaser-example', { preload: preload, create: create, update: update, render: render });
 
 function preload() {
-  game.load.image('phaser', 'assets/dude2.png');
+  game.load.image('phaser', 'assets/sheep.png');
   game.load.image('ballImage', 'assets/ball.png');
   game.load.image('grid', 'assets/map.png');
   game.load.image ('gameover', 'assets/gameover.png');
@@ -16,21 +16,21 @@ var texture;
 var style;
 var scoreboard;
 var gameover;
-var dudeIsDead;
+var dudeIsDead = false;
 
 var upKey;
 var downKey;
 var leftKey;
 var rightKey;
 
-var nbEnemies = 10;
+var nbEnemies = 20;
 var enemies = [];
 var nrBalls = 90;
 var MAX_BALLS = 90;
 var balls = [];
 
 function render(){
-  game.debug.text(game.time.fps, 2, 14, "#00ff00");
+  //game.debug.text(game.time.fps, 2, 14, "#00ff00");
 }
 
 function create() {
@@ -40,6 +40,9 @@ function create() {
   game.add.sprite(0, 0, 'grid');
 
   dudeName = prompt("Please enter your name", "Player Name");
+  console.log(dudeName);
+  if (dudeName == null)
+    return;
   socket = io.connect();
 
   //game.stage.backgroundColor = '#736357';
@@ -128,7 +131,7 @@ function onUpdateArena(data) {
 
   var i;
   var curr = 0;
-  dudeIsDead = true;
+  //dudeIsDead = true;
   for (i = 0; i < data.players.length; ++i){
     if (data.players[i].id != this.id) {
       if (curr < nbEnemies){
@@ -141,7 +144,7 @@ function onUpdateArena(data) {
     else {
       dude.x = data.players[i].x;
       dude.y = data.players[i].y;
-      dudeIsDead = false;
+      //dudeIsDead = false;
       //console.log(data.players[i]);
       text.setText("Score: " + data.players[i].score + "\nHp: " + data.players[i].hp);
     }
@@ -151,7 +154,8 @@ function onUpdateArena(data) {
   for (i = 0; i < data.scoreboard.length - 1; ++i){
     concatenatedString += data.scoreboard[i].name + ": " + data.scoreboard[i].score + "\n";
   }
-  concatenatedString += data.scoreboard[i].name + ": " + data.scoreboard[i].score;
+  if (i < data.scoreboard.length)
+    concatenatedString += data.scoreboard[i].name + ": " + data.scoreboard[i].score;
 
   scoreboard.setText (concatenatedString);
   scoreboard.cameraOffset.setTo (window.innerWidth - scoreboard.width, 0);
@@ -171,10 +175,10 @@ function onUpdateArena(data) {
     balls[i].y = 2000;
   }
 
-  gameover = game.add.sprite (dude.x, dude.y,'gameover');
+  //gameover = game.add.sprite (dude.x, dude.y,'gameover');
 
-  if (!dudeIsDead)
-      gameover.destroy();
+  //if (!dudeIsDead)
+  //    gameover.destroy();
 }
 
 // Socket connected
