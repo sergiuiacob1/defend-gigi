@@ -9,6 +9,7 @@
 #include "./ball.h"
 #include <cstdlib>
 #define DXLOOP 100
+#define DXADDBALLS 5000
 
 using json = nlohmann::json;
 
@@ -136,6 +137,8 @@ void updateArena (const std::string& arenaId){
     gameLoop();
   }
 
+  //if (now() - lastAddedBalls ())
+
   if (!arenas.size())
     return;
 
@@ -152,6 +155,11 @@ void gameLoop(){
 
 std::string app::fire(const std::string& arenaId, const std::string& userId, const std::string& x, const std::string& y){
   json res;
-  res["output"]="costel";
+
+  int tempX=std::stoi(x);
+  int tempY=std::stoi(y);
+  arenas[0].addBall (tempX, tempY);
+
+  res["output"]="okay";
   return res.dump();
 }

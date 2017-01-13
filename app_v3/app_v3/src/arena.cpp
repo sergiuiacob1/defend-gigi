@@ -21,8 +21,8 @@ bool Arena::addUser(User user){
 }
 
 bool Arena::removeUser (const std::string& userId){
-  for (unsigned int i = 0; i < 2; ++i)
-    balls.pop_back();
+  /*for (unsigned int i = 0; i < 2; ++i)
+    balls.pop_back();*/
 
   for (unsigned int i=0; i<users.size(); ++i)
     if (users[i].getId() == userId){
