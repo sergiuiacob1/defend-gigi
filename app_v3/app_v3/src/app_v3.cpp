@@ -8,7 +8,7 @@
 #include "./arena.h"
 #include "./ball.h"
 #include <cstdlib>
-#define DXLOOP 100
+#define DXLOOP 80
 #define DXADDBALLS 5000
 
 using json = nlohmann::json;

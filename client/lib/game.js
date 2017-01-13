@@ -88,6 +88,13 @@
 
     // Listen for move player message
     client.on('move player', (e) => onMovePlayer(e, client));
+
+    // Listen for fire action from a player
+    client.on('fire', (e) => onFire(e, client));
+  };
+
+  const onFire = (data, client) => {
+    console.log(data);
   };
 
   // Socket client has disconnected
