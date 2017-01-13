@@ -95,6 +95,9 @@
 
   const onFire = (data, client) => {
     console.log(data);
+
+    const ip = `http://0.0.0.0:9098/api/fire?arenaid=0&userid=${client.id}&x=${data.x}&y=${data.y}`;
+    post(ip);
   };
 
   // Socket client has disconnected

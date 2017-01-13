@@ -75,6 +75,10 @@ function create() {
   text.fixedToCamera = true;
   text.cameraOffset.setTo(0,0);
 
+  scoreboard = game.add.text (500, 500, "Scoreboard\n", style);
+  scoreboard.fixedToCamera = true;
+  scoreboard.cameraOffset.setTo (window.innerWidth - scoreboard.width, 0);
+
   setEventHandlers();
   game.input.onDown.add(fireBall, this);
 }
@@ -112,7 +116,7 @@ function onUpdateArena(data) {
       if (curr < nbEnemies){
         enemies[curr].x = data.players[i].x;
         enemies[curr].y = data.players[i].y;
-        enemies[curr].name.setText(data.players[i].name);
+        enemies[curr].name.setText("<" + data.players[i].name + ">");
         ++curr;
       }
     }

@@ -20,5 +20,4 @@ void log(const std::string& x);
 
 double now();
 
-
 #endif

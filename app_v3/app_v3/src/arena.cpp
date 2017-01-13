@@ -21,8 +21,8 @@ bool Arena::addUser(User user){
 }
 
 bool Arena::removeUser (const std::string& userId){
-  for (unsigned int i = 0; i < 2; ++i)
-    balls.pop_back();
+  /*for (unsigned int i = 0; i < 2; ++i)
+    balls.pop_back();*/
 
   for (unsigned int i=0; i<users.size(); ++i)
     if (users[i].getId() == userId){
@@ -51,6 +51,12 @@ std::string Arena::getArenaInfo(const std::string& userId){
     res["score"] = users[i].getScore();
     res["hp"] = users[i].getGigi().getHp();
 }
+
+  for (unsigned int i = 0; i < users.size() && i<5; ++i){
+    auxPos["name"] = users[i].getName();
+    auxPos["score"] = users[i].getScore();
+    res["scoreboard"].push_back (auxPos);
+  }
 
   for (unsigned int i = 0; i < balls.size(); ++i){
     auxPos["x"] = balls[i].getX();
@@ -90,7 +96,7 @@ void Arena::processCollisions(){
         balls[i].setLastUserToHitTheBall (users[j].getId());
        	/*std::cout<<"GIGI GOT HIT  ";
         std::cout<<balls[i].getPosition().x<<" "<<balls[i].getPosition().y<<" ";
-        std::cout<<users[j].getGigi().getPosition().x<<" "<<users[j].getGigi().getPosition().y<<" ";
+        std::cout<<users[j].getGigi().getP+osition().x<<" "<<users[j].getGigi().getPosition().y<<" ";
         std::cout<<'\n';
         std::cout<<"GIGI VIATA: "<<users[j].getGigi().getHp()<<'\n';*/
     }
