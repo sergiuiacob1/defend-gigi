@@ -8,7 +8,7 @@
 #include "./arena.h"
 #include "./ball.h"
 #include <cstdlib>
-#define DXLOOP 100
+#define DXLOOP 80
 
 using json = nlohmann::json;
 
@@ -153,6 +153,6 @@ void gameLoop(){
 }
 
 std::string app::fire(const std::string& arenaId, const std::string& userId, const std::string& x, const std::string& y){
-  
+
   return "costel";
 }
