@@ -29,7 +29,7 @@ class Arena {
     bool updateUser(const std::string& userId, const std::string& move);
 
     void addBall (const ball& newBall) {balls.push_back (newBall); ++totalNrOfBalls;}
-    void addBall (const std::string& userId, const int& x, const int& y);
+    bool addBall (const std::string& userId, const int& x, const int& y);
     bool removeBall (const int& id);
 
     void processCollisions();

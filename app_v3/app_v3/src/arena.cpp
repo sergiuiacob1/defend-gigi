@@ -38,6 +38,7 @@ bool Arena::removeUser (const std::string& userId){
 }
 
 std::string Arena::getArenaInfo(const std::string& userId){
+  bool userIsDead = true;
 
   json res;
   res["id"] = userId;
@@ -56,6 +57,8 @@ std::string Arena::getArenaInfo(const std::string& userId){
     auxPos["hp"] = users[i].getGigi().getHp();
     res["players"].push_back(auxPos);
 
+    if (users[i].getId() == userId)
+      userIsDead = false;
   }
 
   if (users.size())
@@ -76,6 +79,11 @@ std::string Arena::getArenaInfo(const std::string& userId){
     res["balls"].push_back(auxPos3);
   }
 
+  if (userIsDead)
+    res["dead"] = "true";
+  else
+    res["dead"] = "false";
+
   return res.dump();
 }
 
@@ -93,24 +101,29 @@ bool Arena::updateUser(const std::string& userId, const std::string& move){
 inline void addScoreToUser (const std::string&);
 void Arena::processCollisions(){
   unsigned int i, j;
-  for (i = 0; i < balls.size(); ++i)
+  bool removeThisBall;
+  for (i = 0; i < balls.size(); ++i){
+    removeThisBall = false;
+
     for (j = 0; j < users.size(); ++j)
       if (balls[i].hasCollided(users[j].getGigi())){
-        balls[i].move (50);
 
         if (balls[i].getLastUserToHitTheBall() == users[j].getId())
           continue;
 
+        this->addScoreToUser (balls[i].getLastUserToHitTheBall());
         users[j].gotHit();
 
-        this->addScoreToUser (balls[i].getLastUserToHitTheBall());
-        balls[i].setLastUserToHitTheBall (users[j].getId());
-       	/*std::cout<<"GIGI GOT HIT  ";
-        std::cout<<balls[i].getPosition().x<<" "<<balls[i].getPosition().y<<" ";
-        std::cout<<users[j].getGigi().getP+osition().x<<" "<<users[j].getGigi().getPosition().y<<" ";
-        std::cout<<'\n';
-        std::cout<<"GIGI VIATA: "<<users[j].getGigi().getHp()<<'\n';*/
+        if (users[j].getGigi().isDead()){
+          this->removeUser (users[j].getId());
+          --j;
+        }
+
+        removeThisBall = true;
     }
+    if (removeThisBall)
+      this->removeBall(balls[i].getId());
+  }
   return;
 }
 
@@ -123,22 +136,24 @@ inline void Arena::addScoreToUser (const std::string& userId){
     }
 }
 
-void Arena::addBall (const std::string& userId, const int& x, const int& y){
+bool Arena::addBall (const std::string& userId, const int& x, const int& y){
   int userIndex = -1;
   for (unsigned int i = 0; i < users.size(); ++i){
     if (userId == users[i].getId())
       userIndex = i;
   }
   if (userIndex == -1)
-    return;
+    return false;
 
 
   //ball
   ball newBall(users[userIndex].getPosition().x, users[userIndex].getPosition().y, x, y);
+  newBall.setLastUserToHitTheBall (userId);
   //position pos;
   //pos.x = x; pos.y = y;
   //newBall.setPosition (pos);
   balls.push_back (newBall);
+  return true;
 }
 
 bool Arena::removeBall(const int& id){
@@ -155,7 +170,7 @@ void Arena::update(){
 }
 
 void Arena::onUpdate(){
-  int n = balls.size();
+  unsigned int n = balls.size();
 
   unsigned int i;
   for (i = 0; i < n; ++i)

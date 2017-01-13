@@ -18,7 +18,7 @@ void ball::update(){
 }
 
 void ball::onUpdate(){
-  movement.update();
+  this->setPosition(movement.update());
 }
 
 bool ball::isOutsideMap(){

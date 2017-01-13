@@ -34,9 +34,11 @@ Movement::Movement(int xCurr, int yCurr, int xDest, int yDest, int viteza){
     semny = 1;
 }
 
-void Movement::onUpdate(){
+position Movement::onUpdate(){
+  position pos;
+  pos.x = xCurr; pos.y = yCurr;
   if (running == false)
-    return;
+    return pos;
 
   if (xCurr == xDest){
     mx = 0;
@@ -58,13 +60,16 @@ void Movement::onUpdate(){
 
   xCurr += semnx * mx;
   yCurr += semny * my;
-
+  pos.x = xCurr;
+  pos.y = yCurr;
   /*int auxX = mod(xCurr - xDest);// auxX = auxX<0?(-auxX):auxX;
   int auxY = mod(yCurr - yDest);// auxY = auxY<0?(-auxY):auxY;
   if (auxX <= 6 && auxY <= 6)
     running = false;*/
+
+  return pos;
 }
 
-void Movement::update(){
-  onUpdate();
+position Movement::update(){
+  return onUpdate();
 }

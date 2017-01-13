@@ -1,5 +1,6 @@
 #ifndef MOVEMENT_H
 #define MOVEMENT_H
+#include "./utils.h"
 
 class Movement {
   private:
@@ -12,14 +13,14 @@ class Movement {
     double rap;
     int semnx, semny;
 
-    void onUpdate();
+    position onUpdate();
 
   public:
     Movement(int xCurr, int yCurr, int xDest, int yDest, int viteza);
     bool isRunning() {return running;}
     double getX() {return xCurr;}
     double getY() {return yCurr;}
-    void update();
+    position update();
 
 };
 

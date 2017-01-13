@@ -95,8 +95,8 @@ int addUserToArena (const std::string& name, const std::string& id){
 }
 
 void addBallsToArena (const int &arenaId, const int &nrOfBalls){
-  position init;
-  /*ball newBall;
+  /*position init;
+  ball newBall;
 
   for (int i=0; i<nrOfBalls; ++i){
       init.x = rand() % CANVAS_WIDTH;
@@ -162,9 +162,14 @@ std::string app::fire(const std::string& arenaId, const std::string& userId, con
   int intArenaId = std::stoi(arenaId);
   for (unsigned int i = 0; i < arenas.size(); ++i){
     if (arenas[i].getId() == intArenaId){
-      arenas[i].addBall(userId, tempX, tempY);
+      if (arenas[i].addBall(userId, tempX, tempY)){
+        res["output"] = "okay";
+        return res.dump();
+      }
+
     }
   }
-  res["output"]="okay";
+
+  res["output"]="not okay";
   return res.dump();
 }

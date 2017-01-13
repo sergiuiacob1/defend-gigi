@@ -4,6 +4,7 @@ function preload() {
   game.load.image('phaser', 'assets/dude2.png');
   game.load.image('ballImage', 'assets/ball.png');
   game.load.image('grid', 'assets/map.png');
+  game.load.image ('gameover', 'assets/gameover.png');
 }
 
 var socket // Socket connection
@@ -14,6 +15,7 @@ var dudeName;
 var texture;
 var style;
 var scoreboard;
+var gameover;
 
 var upKey;
 var downKey;
@@ -35,7 +37,6 @@ function create() {
 
   game.world.setBounds(0, 0, 1920, 1920);
   game.add.sprite(0, 0, 'grid');
-
 
   dudeName = prompt("Please enter your name", "Player Name");
   socket = io.connect();
@@ -72,12 +73,12 @@ function create() {
     balls[i].scale.setTo (1, 1);
   }
 
-  upKey = game.input.keyboard.addKey(Phaser.Keyboard.UP);
-  downKey = game.input.keyboard.addKey(Phaser.Keyboard.DOWN);
-  leftKey = game.input.keyboard.addKey(Phaser.Keyboard.LEFT);
-  rightKey = game.input.keyboard.addKey(Phaser.Keyboard.RIGHT);
+  upKey = game.input.keyboard.addKey(Phaser.Keyboard.W);
+  downKey = game.input.keyboard.addKey(Phaser.Keyboard.S);
+  leftKey = game.input.keyboard.addKey(Phaser.Keyboard.A);
+  rightKey = game.input.keyboard.addKey(Phaser.Keyboard.D);
 
-  style = { font: "32px Arial", fill: "#ffffff", align: "center", backgroundColor: "#000000" };
+  style = { font: "32px Arial", fill: "#000000", align: "center"};
 
   text = game.add.text(0, 0, "Score: 0", style);
   text.fixedToCamera = true;
@@ -87,6 +88,7 @@ function create() {
   scoreboard.fixedToCamera = true;
   scoreboard.cameraOffset.setTo (window.innerWidth - scoreboard.width, 0);
   scoreboard.players = [];
+  
   /*for (var i = 0; i < 5; ++i){
     scoreboard.players[i] = game.add.text (0, 10 * (i+1), "player1", style);
     //scoreboard.addChild (scoreboard.players[i]);
@@ -123,6 +125,11 @@ function onUpdateArena(data) {
   if (data.players == undefined)
     return;
 
+  /*if (data.dead == "false"){
+    gameover = game.add.sprite (dude.x, dude.y, 'gameover'); 
+    return;
+}*/
+
   var i;
   var curr = 0;
   for (i = 0; i < data.players.length; ++i){
@@ -139,13 +146,18 @@ function onUpdateArena(data) {
       dude.y = data.players[i].y;
       //console.log(data.players[i]);
       text.setText("Score: " + data.players[i].score + "\nHp: " + data.players[i].hp);
+
+      if (data.players[i].hp == "0"){
+        gameover = game.add.sprite (0, 0, 'gameover');
+      }
     }
   }
 
   var concatenatedString = "Scoreboard\n";
-  for (i = 0; i < data.scoreboard.length; ++i){
+  for (i = 0; i < data.scoreboard.length - 1; ++i){
     concatenatedString += data.scoreboard[i].name + ": " + data.scoreboard[i].score + "\n";
   }
+  concatenatedString += data.scoreboard[i].name + ": " + data.scoreboard[i].score;
 
   scoreboard.setText (concatenatedString);
   scoreboard.cameraOffset.setTo (window.innerWidth - scoreboard.width, 0);
