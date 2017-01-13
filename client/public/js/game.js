@@ -166,16 +166,15 @@ function onUpdateArena(data) {
     balls[i].y = data.balls[i].y;
   }
 
-  //console.log(data.balls.length);
   for (i = data.balls.length; i < MAX_BALLS; ++i){
     balls[i].x = 2000;
     balls[i].y = 2000;
   }
 
-  if (dudeIsDead)
-      gameover = game.add.sprite (dude.x, dude.y,'gameover');
-      //else
-      //gameover.destroy();
+  gameover = game.add.sprite (dude.x, dude.y,'gameover');
+
+  if (!dudeIsDead)
+      gameover.destroy();
 }
 
 // Socket connected

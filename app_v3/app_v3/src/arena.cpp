@@ -22,7 +22,6 @@ bool Arena::addUser(User user){
     return false;
 
   users.push_back(user);
-  std::cout<<"in arena addUser "<<user.getId()<<'\n';
   return true;
 }
 
