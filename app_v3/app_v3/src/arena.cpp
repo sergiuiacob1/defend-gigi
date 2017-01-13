@@ -22,6 +22,7 @@ bool Arena::addUser(User user){
     return false;
 
   users.push_back(user);
+  std::cout<<"in arena addUser "<<user.getId()<<'\n';
   return true;
 }
 
@@ -59,6 +60,7 @@ std::string Arena::getArenaInfo(const std::string& userId){
 
     if (users[i].getId() == userId)
       userIsDead = false;
+    std::cout<<users[i].getId()<<" "<<userId<<'\n';
   }
 
   if (users.size())

@@ -43,6 +43,7 @@ std::string app::getArenaInfo(const std::string& id, const std::string& userId){
 std::string app::startGame(const std::string& name, const std::string& id){
   json res;
   int arenaId;
+  std::cout<<"in startGame "<<id<<'\n';
   arenaId = addUserToArena (name, id);
   //addBallsToArena (arenaId, 2);
 
@@ -60,6 +61,7 @@ int addUserToArena (const std::string& name, const std::string& id){
   init.x = rand() % CANVAS_WIDTH;
   init.y = rand() % CANVAS_HEIGHT;
   User user(name, id, init);
+  std::cout<<"in addUserToArena "<<user.getId()<<'\n';
 
   if (!arenas.size()){
     Arena arena;

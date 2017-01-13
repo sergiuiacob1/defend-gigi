@@ -61,11 +61,16 @@
     //initi();
   //
 
-  const ipUpdate = `http://0.0.0.0:9098/api/get_arena_info?id=0&userid=0`;
+  //const ipUpdate = `http://0.0.0.0:9098/api/get_arena_info?id=0&userid=0`;
 
   const update = () => {
     //console.log(ip);
     //console.log(socket.sockets);
+
+    //var id = socket.io.engine.id;
+    var id = 0;
+
+    const ipUpdate = `http://0.0.0.0:9098/api/get_arena_info?id=0&userid=${id}`;
 
     get(ipUpdate).then((res) => {
       socket.sockets.emit('update arena', res);
