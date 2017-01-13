@@ -105,3 +105,20 @@ inline void Arena::addScoreToUser (const std::string& userId){
       return;
     }
 }
+
+void Arena::addBall (const int& x, const int& y){
+  ball newBall;
+  position pos;
+  pos.x = x; pos.y = y;
+  newBall.setPosition (pos);
+  balls.push_back (newBall);
+}
+
+bool Arena::removeBall(const int& id){
+  for (unsigned int i = 0; i < balls.size(); ++i)
+    if (balls[i].getId() == id){
+      balls.erase (balls.begin() + i);
+      return true;
+    }
+  return false;
+}
