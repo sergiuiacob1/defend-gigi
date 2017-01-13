@@ -43,7 +43,7 @@ std::string app::startGame(const std::string& name, const std::string& id){
   json res;
   int arenaId;
   arenaId = addUserToArena (name, id);
-  addBallsToArena (arenaId, 2);
+  //addBallsToArena (arenaId, 2);
 
   res["userId"] = id;
   res["arenaId"] = arenaId;
@@ -65,9 +65,7 @@ int addUserToArena (const std::string& name, const std::string& id){
     arenas.push_back(arena);
   }
   arenas[0].addUser(user);
-
   return arenas[0].getId();
-
   /*
   unsigned int i;
   for (i=1; i<10; ++i)
@@ -153,6 +151,7 @@ void gameLoop(){
 }
 
 std::string app::fire(const std::string& arenaId, const std::string& userId, const std::string& x, const std::string& y){
-
-  return "costel";
+  json res;
+  res["output"]="costel";
+  return res.dump();
 }

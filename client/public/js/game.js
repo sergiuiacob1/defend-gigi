@@ -1,4 +1,4 @@
-var game = new Phaser.Game(1300, 700, Phaser.AUTO, 'phaser-example', { preload: preload, create: create, update: update, render: render });
+var game = new Phaser.Game(window.innerWidth, window.innerHeight, Phaser.AUTO, 'phaser-example', { preload: preload, create: create, update: update, render: render });
 
 function preload() {
   game.load.image('phaser', 'assets/dude2.png');
@@ -76,6 +76,15 @@ function create() {
   text.cameraOffset.setTo(0,0);
 
   setEventHandlers();
+  game.input.onDown.add(fireBall, this);
+}
+
+function fireBall(pointer){
+  console.log(pointer);
+  var x = pointer.x + game.camera.x;
+  var y = pointer.y + game.camera.y;
+  console.log(x);
+  console.log(y);
 }
 
 var setEventHandlers = function () {
@@ -156,7 +165,7 @@ function update() {
   if (move == "")
     move = "none";
 
-  console.log(move);
+  //console.log(move);
 
   //if (move != "none")
     //setTimeout(function(){dude.x +=3;}, 1000/10);

@@ -10,7 +10,7 @@ class User{
     position pos;
     std::string name;
     std::string id;
-    int lastUpdate, score;
+    int lastUpdate, score, ballsToFire;
     Sheep sheep;
     Gigi gigi;
     void onUpdate(const std::string& move);
@@ -24,7 +24,7 @@ class User{
     position getSheepPosition() const {return sheep.getPosition();}
     position getGigiPosition() const {return gigi.getPosition();}
     int getScore() const {return score;}
-
+    int getBallsToFire() const {return ballsToFire;}
     void setSheepPosition (const position& newPos) {sheep.setPosition (newPos);}
     void setGigiPosition (const position& newPos) {gigi.setPosition (newPos);}
     void setScore (const int& newScore) {score=newScore;}
