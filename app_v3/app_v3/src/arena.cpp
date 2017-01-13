@@ -58,7 +58,9 @@ std::string Arena::getArenaInfo(const std::string& userId){
 
   }
 
-  sort (users.begin(), users.begin() + users.size(), cmp);
+  if (users.size())
+    sort (users.begin(), users.begin() + users.size(), cmp);
+    
   json auxPos2;
   for (unsigned int i = 0; i < users.size() && i<5; ++i){
     auxPos2["name"] = users[i].getName();

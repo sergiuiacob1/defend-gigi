@@ -31,6 +31,8 @@ function render(){
 }
 
 function create() {
+  game.physics.startSystem(Phaser.Physics.ARCADE);
+
   game.world.setBounds(0, 0, 1920, 1920);
   game.add.sprite(0, 0, 'grid');
 
@@ -40,6 +42,7 @@ function create() {
 
   //game.stage.backgroundColor = '#736357';
   dude = game.add.sprite(300, 300, 'phaser');
+
 
   style = { font: "15px Arial", fill: "#ffffff" };
   dude.name = dude.game.add.text (0, -10, "<" + dudeName + ">", style);
@@ -179,6 +182,7 @@ function onSocketDisconnect () {
 }
 
 function update() {
+  dude.rotation = game.physics.arcade.angleToPointer(dude);
 
   var move = "";
   if (upKey.isDown){
