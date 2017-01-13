@@ -49,8 +49,6 @@ function create() {
     else
     dude.name.x = dude.width/2 - dude.name.width/2;
 
-  ball = game.add.sprite (10, 10, 'ballImage');
-  ball.scale.setTo (0.05, 0.05);
 
   game.camera.follow (dude);
   game.time.advancedTiming = true;
@@ -66,8 +64,8 @@ function create() {
       enemies[i].name.x = enemies[i].width/2 - enemies[i].name.width/2;
   }
 
-  for (var i = 0; i < nrBalls; ++i){
-    balls.push(game.add.sprite (10, 10, 'ballImage'));
+  for (var i = 0; i < MAX_BALLS; ++i){
+    balls.push(game.add.sprite (2000, 20000, 'ballImage'));
     balls[i].scale.setTo (1, 1);
   }
 
@@ -122,8 +120,9 @@ function onUpdateArena(data) {
   if (data.players == undefined)
     return;
 
+  var i;
   var curr = 0;
-  for (var i = 0; i < data.players.length; ++i){
+  for (i = 0; i < data.players.length; ++i){
     if (data.players[i].id != this.id) {
       if (curr < nbEnemies){
         enemies[curr].x = data.players[i].x;
@@ -140,7 +139,7 @@ function onUpdateArena(data) {
   }
 
   var concatenatedString = "Scoreboard\n";
-  for (var i = 0; i < data.scoreboard.length; ++i){
+  for (i = 0; i < data.scoreboard.length; ++i){
     concatenatedString += data.scoreboard[i].name + ": " + data.scoreboard[i].score + "\n";
   }
 
@@ -152,9 +151,15 @@ function onUpdateArena(data) {
     enemies[curr].y = 2000;
   }
 
-  for (var i = 0; i < data.balls.length && i < MAX_BALLS; ++i){
+  for (i = 0; i < data.balls.length && i < MAX_BALLS; ++i){
     balls[i].x = data.balls[i].x;
     balls[i].y = data.balls[i].y;
+  }
+
+  console.log(data.balls.length);
+  for (i = data.balls.length; i < MAX_BALLS; ++i){
+    balls[i].x = 2000;
+    balls[i].y = 2000;
   }
 }
 

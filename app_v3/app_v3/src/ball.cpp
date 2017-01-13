@@ -20,3 +20,10 @@ void ball::update(){
 void ball::onUpdate(){
   movement.update();
 }
+
+bool ball::isOutsideMap(){
+  if (getX() > 1920 || getX() < 0 ||
+      getY() > 1920 || getY() < 0)
+    return true;
+  return false;
+}
