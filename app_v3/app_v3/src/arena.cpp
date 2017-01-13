@@ -53,8 +53,8 @@ std::string Arena::getArenaInfo(const std::string& userId){
 }
 
   for (unsigned int i = 0; i < balls.size(); ++i){
-    auxPos["x"] = balls[i].getPosition().x;
-    auxPos["y"] = balls[i].getPosition().y;
+    auxPos["x"] = balls[i].getX();
+    auxPos["y"] = balls[i].getY();
     auxPos["id"] = balls[i].getId();
     res["balls"].push_back(auxPos);
   }
@@ -80,7 +80,7 @@ void Arena::processCollisions(){
     for (j = 0; j < users.size(); ++j)
       if (balls[i].hasCollided(users[j].getGigi())){
         balls[i].move (50);
-        
+
         if (balls[i].getLastUserToHitTheBall() == users[j].getId())
           continue;
 
@@ -107,10 +107,10 @@ inline void Arena::addScoreToUser (const std::string& userId){
 }
 
 void Arena::addBall (const int& x, const int& y){
-  ball newBall;
-  position pos;
-  pos.x = x; pos.y = y;
-  newBall.setPosition (pos);
+  ball newBall(x, y, x, y);
+  //position pos;
+  //pos.x = x; pos.y = y;
+  //newBall.setPosition (pos);
   balls.push_back (newBall);
 }
 
@@ -121,4 +121,16 @@ bool Arena::removeBall(const int& id){
       return true;
     }
   return false;
+}
+
+void Arena::update(){
+  onUpdate();
+}
+
+void Arena::onUpdate(){
+  int n = balls.size();
+
+  int i;
+  for (i = 0; i < n; ++i)
+    balls[i].update();
 }
