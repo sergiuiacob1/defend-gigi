@@ -16,6 +16,7 @@ class Arena {
     int lastUpdate;
     std::vector <User> users;
     std::vector <ball> balls;
+    void onUpdate();
   public:
     Arena();
     const int getId() {return id;}
@@ -26,13 +27,15 @@ class Arena {
     bool addUser(User);
     bool removeUser(const std::string&);
     bool updateUser(const std::string& userId, const std::string& move);
-    
+
     void addBall (const ball& newBall) {balls.push_back (newBall); ++totalNrOfBalls;}
-    void addBall (const int& x, const int& y);
+    void addBall (const std::string& userId, const int& x, const int& y);
     bool removeBall (const int& id);
 
     void processCollisions();
     inline void addScoreToUser (const std::string&);
+
+    void update();
 };
 
 #endif

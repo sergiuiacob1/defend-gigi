@@ -96,7 +96,7 @@ int addUserToArena (const std::string& name, const std::string& id){
 
 void addBallsToArena (const int &arenaId, const int &nrOfBalls){
   position init;
-  ball newBall;
+  /*ball newBall;
 
   for (int i=0; i<nrOfBalls; ++i){
       init.x = rand() % CANVAS_WIDTH;
@@ -104,7 +104,7 @@ void addBallsToArena (const int &arenaId, const int &nrOfBalls){
       newBall.setPosition (init);
       newBall.setId(arenas[arenaId].getTotalNrOfBalls() + 1);
       arenas[arenaId].addBall (newBall);
-  }
+  }*/
 }
 
 std::string app::endGame(const std::string& id){
@@ -150,16 +150,21 @@ void updateArena (const std::string& arenaId){
 }
 
 void gameLoop(){
-
+  for (int i = 0; i < arenas.size(); ++i){
+    arenas[i].update();
+  }
 }
 
 std::string app::fire(const std::string& arenaId, const std::string& userId, const std::string& x, const std::string& y){
   json res;
-
   int tempX=std::stoi(x);
   int tempY=std::stoi(y);
-  arenas[0].addBall (tempX, tempY);
-
+  int intArenaId = std::stoi(arenaId);
+  for (unsigned int i = 0; i < arenas.size(); ++i){
+    if (arenas[i].getId() == intArenaId){
+      arenas[i].addBall(userId, tempX, tempY);
+    }
+  }
   res["output"]="okay";
   return res.dump();
 }

@@ -19,7 +19,8 @@ var rightKey;
 
 var nbEnemies = 10;
 var enemies = [];
-var nrBalls = 20;
+var nrBalls = 90;
+var MAX_BALLS = 90;
 var balls = [];
 
 function render(){
@@ -146,7 +147,7 @@ function onUpdateArena(data) {
     enemies[curr].y = 2000;
   }
 
-  for (var i = 0; i < data.balls.length; ++i){
+  for (var i = 0; i < data.balls.length && i < MAX_BALLS; ++i){
     balls[i].x = data.balls[i].x;
     balls[i].y = data.balls[i].y;
   }
