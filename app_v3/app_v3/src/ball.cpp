@@ -1,6 +1,6 @@
 #include "./ball.h"
 
-ball::ball(int x, int y, int xDest, int yDest) : movement(x, y, xDest, yDest, 50){
+ball::ball(int x, int y, int xDest, int yDest) : movement(x, y, xDest, yDest, 900){
     lastUserToHitTheBall = -1;
     //movement = Movement(x, y, xDest, yDest, 50);
 }

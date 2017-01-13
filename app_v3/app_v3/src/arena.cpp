@@ -112,8 +112,18 @@ inline void Arena::addScoreToUser (const std::string& userId){
     }
 }
 
-void Arena::addBall (const int& x, const int& y){
-  ball newBall(x, y, x, y);
+void Arena::addBall (const std::string& userId, const int& x, const int& y){
+  int userIndex = -1;
+  for (unsigned int i = 0; i < users.size(); ++i){
+    if (userId == users[i].getId())
+      userIndex = i;
+  }
+  if (userIndex == -1)
+    return;
+
+
+  //ball
+  ball newBall(users[userIndex].getPosition().x, users[userIndex].getPosition().y, x, y);
   //position pos;
   //pos.x = x; pos.y = y;
   //newBall.setPosition (pos);
