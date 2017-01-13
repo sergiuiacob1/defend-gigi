@@ -25,6 +25,7 @@ class collidable{
 
     bool hasCollided (const collidable&) const;
     bool canMove (const std::string&) const;
+    bool isOutsideMap () const;
 };
 
 #endif

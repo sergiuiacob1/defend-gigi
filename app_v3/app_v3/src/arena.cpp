@@ -152,7 +152,10 @@ void Arena::update(){
 void Arena::onUpdate(){
   int n = balls.size();
 
-  int i;
+  unsigned int i;
   for (i = 0; i < n; ++i)
-    balls[i].update();
+    if (balls[i].isOutsideMap())
+      this->removeBall (balls[i].getId());
+    else
+      balls[i].update();
 }
