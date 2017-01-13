@@ -61,7 +61,7 @@ function create() {
 
   for (var i = 0; i < nrBalls; ++i){
     balls.push(game.add.sprite (10, 10, 'ballImage'));
-    balls[i].scale.setTo (0.05, 0.05);
+    balls[i].scale.setTo (1, 1);
   }
 
   upKey = game.input.keyboard.addKey(Phaser.Keyboard.UP);
@@ -85,6 +85,7 @@ function fireBall(pointer){
   var y = pointer.y + game.camera.y;
   console.log(x);
   console.log(y);
+  socket.emit('fire', {x: x, y: y});
 }
 
 var setEventHandlers = function () {
