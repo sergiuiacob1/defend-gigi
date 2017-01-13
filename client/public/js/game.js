@@ -40,6 +40,8 @@ function create() {
   game.add.sprite(0, 0, 'grid');
 
   dudeName = prompt("Please enter your name", "Player Name");
+  if (dudeName.length > 15)
+    return;
   console.log(dudeName);
   if (dudeName == null)
     return;
