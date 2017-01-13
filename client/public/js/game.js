@@ -10,6 +10,7 @@ var dude;
 var ball;
 var dudeName;
 var style;
+var scoreboard;
 
 var upKey;
 var downKey;
@@ -78,6 +79,11 @@ function create() {
   scoreboard = game.add.text (500, 500, "Scoreboard\n", style);
   scoreboard.fixedToCamera = true;
   scoreboard.cameraOffset.setTo (window.innerWidth - scoreboard.width, 0);
+  scoreboard.players = [];
+  /*for (var i = 0; i < 5; ++i){
+    scoreboard.players[i] = game.add.text (0, 10 * (i+1), "player1", style);
+    //scoreboard.addChild (scoreboard.players[i]);
+}*/
 
   setEventHandlers();
   game.input.onDown.add(fireBall, this);
@@ -126,6 +132,14 @@ function onUpdateArena(data) {
       text.setText("Score: " + data.score + "\nHp: " + data.hp);
     }
   }
+
+  var concatenatedString = "Scoreboard\n";
+  for (var i = 0; i < data.scoreboard.length; ++i){
+    concatenatedString += data.scoreboard[i].name + ": " + data.scoreboard[i].score + "\n";
+  }
+
+  scoreboard.setText (concatenatedString);
+  scoreboard.cameraOffset.setTo (window.innerWidth - scoreboard.width, 0);
 
   for (; curr < nbEnemies; ++curr){
     enemies[curr].x = 2000;

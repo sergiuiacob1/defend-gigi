@@ -1,9 +1,14 @@
 #include "./arena.h"
 #include "json.hpp"
+#include <algorithm>
 using json = nlohmann::json;
 
 int Arena::totalNrOfBalls = 0;
 int lastArenaId = 0;
+
+bool cmp (const User& a, const User& b){
+  return a.getScore() > b.getScore();
+}
 
 Arena::Arena() {
   id = lastArenaId++;
@@ -50,8 +55,9 @@ std::string Arena::getArenaInfo(const std::string& userId){
 
     res["score"] = users[i].getScore();
     res["hp"] = users[i].getGigi().getHp();
-}
+  }
 
+  sort (users.begin(), users.begin() + users.size(), cmp);
   for (unsigned int i = 0; i < users.size() && i<5; ++i){
     auxPos["name"] = users[i].getName();
     auxPos["score"] = users[i].getScore();
