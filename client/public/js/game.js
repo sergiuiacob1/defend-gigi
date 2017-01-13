@@ -1,3 +1,4 @@
+//COPYRIGHT: Iacob Sergiu + Casuneanu Andrei
 var game = new Phaser.Game(window.innerWidth, window.innerHeight, Phaser.AUTO, 'phaser-example', { preload: preload, create: create, update: update, render: render });
 
 function preload() {
